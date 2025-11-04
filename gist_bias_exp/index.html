@@ -1,0 +1,293 @@
+<!DOCTYPE html><html> <head>
+   	<title>Spatial memory experiment</title>
+   	<script src="https://unpkg.com/jspsych@8.2.2"></script>
+     <script src="https://unpkg.com/@jspsych/extension-mouse-tracking@1.2.0"></script>
+	<script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-canvas-button-response@2.1.0"></script>
+
+   	<link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet"  type = "text/css" /> 
+
+ </head>
+ <body></body>
+ <script>
+    var timeline = [];
+
+   	//this is where we will write JavaScript code to control the experiments//
+  	const jsPsych = initJsPsych({
+        extensions: [
+        { type: jsPsychExtensionMouseTracking, params: {minimum_sample_time: 0} }
+      ]
+    });
+
+    //get screen size//
+    var screen_width = window.innerWidth;
+    var screen_height = window.innerHeight;
+	//set parameters//
+    var circ_radius = 100
+	var num_dot = 6; //number of dots to remember//
+	var gist_loc_x = 0; //gist location in x-axis//
+	var gist_loc_y = 0; //gist location in y-axis//
+	var sd_x = 1; //sd in x axis (use when sampling location)//
+	var sd_y = 1; //sd in x axis (use when sampling location)//
+
+	//get array of dots location//
+	var dot_loc_x = [276,620,292,653,258,786];
+	var dot_loc_y = [321,740,762,387,588,655];
+
+    var loc_x
+    var loc_y
+
+
+	//get list of name//
+	var name_loc = ['Hospital', 'Restaurant', 'University', 'Park', 'Coffee Shop', 'School'];
+
+	//shuffle name labels to have different mapping for each participant
+	var shuffled_name_loc = jsPsych.randomization.shuffle(name_loc);
+
+    // function to draw dot at specific location
+    function filledCirc(canvas, radius, color,x_pos, y_pos) {
+    var ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.arc(Number(x_pos), Number(y_pos), radius, 0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    }
+
+    //set canvas size
+    var sc_width = screen_width;
+    var sc_height = screen_height;
+
+ 	// define welcome message trial
+ 	var welcome = {
+  	 type: jsPsychHtmlKeyboardResponse,
+   	stimulus: "Welcome to the experiment. Press any key to begin."
+ 	};
+	 // add the welcome trial to the timeline variable
+ 	timeline.push(welcome);
+
+ 	// define the instructions trial
+ 	var instructions = {
+   	type: jsPsychHtmlKeyboardResponse,
+   	stimulus: `
+  	 <p>In this experiment, You will learn 6 pairs of dot locations and their names.</p><p>First, you will undergo a training phase,
+   	And when you achieve high accuracy in training, you will proceed to testing phase</p>
+   	<p>Press any key to begin.</p>
+ 	`
+ 	};
+
+ 	//add the instructions trial to the timeline
+ 	timeline.push(instructions);
+
+	//training phase 1 : present dot and name sequentially once. Click on location to proceed//
+    //for loop for all dots
+    for (var i = 0; i < num_dot; i++) {
+        var round_x = Math.round(dot_loc_x[i]/100) * 100;
+        var round_y = Math.round(dot_loc_y[i]/100) * 100;
+        var dot_name = {
+      	type: jsPsychHtmlKeyboardResponse,
+      	stimulus: shuffled_name_loc[i]
+        };
+        var dot_loc = {
+            type: jsPsychCanvasButtonResponse,
+            stimulus: function(c) {
+                filledCirc(c, circ_radius, 'black',round_x, round_y);
+            }, 
+                canvas_size: [sc_width / 2  , sc_height / 2  ],
+        choices: ['Press here to continue'],
+        //data: {
+          //radius: jsPsych.timelineVariable('radius'),
+          //color: jsPsych.timelineVariable('color'),
+          //correct_response: jsPsych.timelineVariable('correct_response')
+        //}
+        };
+        timeline.push(dot_name);
+        timeline.push(dot_loc);
+        };
+
+    //end of for loop// 
+
+    //show text before phase 2//
+    var begin_phase2 = {
+  	type: jsPsychHtmlKeyboardResponse,
+   	stimulus: "That's all for training phase 1. In the next phase, you will see the name of place that you've just learned in phase 1. Now, you have to recall their position by clicking on the screen. If you make an accurate recall, the true location will be shown and you will proceed to next trial. If you response has high error, you have 2 more attempts to answer and feedback will be shown after your 3rd attempt</p>Press any key to begin.</p>"
+ 	};
+	 // add the welcome trial to the timeline variable
+ 	timeline.push(begin_phase2 );
+
+	//training phase 2 : present only name and ask for the dot location, if the error is less than 80 pixels then feedback will be shown and they can proceed to next trial. Participants have 3 attempts in total to answer the correct location//
+
+    var error_thres //select threshold for error
+    var error = error_thres; //initialize error variable//
+    var phase_2_att = 3;
+    var feedback_text = ["<p>Your response was more than 80 pixels away from the target location. The correct location is shown above. Press the button to continue.</p>","<p>Great!. The correct location is shown above. Press the button to continue.</p>"]
+    for (var i = 0; i < num_dot; i++) {
+        //shuffle idx to get random order
+        round_x = Math.round(dot_loc_x[trial_idx]/100) * 100;
+        round_y = Math.round(dot_loc_y[trial_idx]/100) * 100;    
+        var arr_idx = [0,1,2,3,4,5]
+        var shuffled_idx = jsPsych.randomization.shuffle(arr_idx);
+        var trial_idx = shuffled_idx[i];
+            for (var attempt = 1; attempt <= phase_2_att; attempt++) {
+                //show location cue
+                var dot_cue_phase2 = {
+              	type: jsPsychHtmlKeyboardResponse,
+              	stimulus: shuffled_name_loc[trial_idx],
+                prompt: "<p>Move your mouse to target location and press Enter</p>",
+                extensions: [
+                {type: jsPsychExtensionMouseTracking, params: {targets: []}}
+                    ],
+                data: {
+                    task: 'draw'
+                    }
+                };
+                timeline.push(dot_cue_phase2);
+                //get mouse location
+                const mouseMovements = jsPsych.data.get().last(1).values()[0].mouse_tracking_data;
+                //calculate error
+                // error = Math.sqrt(Math.pow(round_x - MouseMovements['x'],2)+Math.pow(round_y - MouseMovements['y'],2))
+                //break the loop if error is less than 80 pixels//
+                if (error < error_thres)  {
+                    break;
+                }
+            }
+        //show feedback
+        var dot_feedback = {
+            type: jsPsychCanvasButtonResponse,
+            stimulus: function(c) {
+                filledCirc(c, circ_radius, 'black',round_x, round_y);
+            }, 
+            canvas_size: [sc_width / 2  , sc_height / 2  ],
+            choices: ['Press here to continue'],
+            //choose prompt based on error size//
+            prompt: feedback_text[Number(error < 80)]
+
+        }
+    };
+	
+
+
+	//training phase 3 : present only name and ask for the dot location, if any error is larger than 80 pixels then they have to go back to phase 2//
+    var phase3_error = []; //initialize array to keep error 
+    var max_error = 80; //initialize max error
+    while (max_error >= 80){
+        for (var i = 0; i < num_dot; i++) {
+            //shuffle idx to get random order
+            var shuffled_idx = jsPsych.randomization.shuffle(shuffled_idx);
+            var trial_idx = shuffled_idx[i];
+        
+            //show location cue
+            dot_cue_phase3 = {
+              	type: jsPsychHtmlKeyboardResponse,
+              	stimulus: shuffled_name_loc[trial_idx],
+                prompt: "<p>Move your mouse to target location and press Enter</p>",
+                extensions: [
+                {type: jsPsychExtensionMouseTracking, params: {targets: ['#target']}}
+                ]
+            };
+
+            timeline.push(dot_cue_phase3);
+            //get mouse location
+            //calculate error
+            // error = ....
+            // append error to an array
+
+        };   
+        //get max error
+        // var max_error = Math.max(phase3_error);
+        // if error is more than 80 then back to phase 2
+        if (max_error < 80){
+            break;
+        } else // go back to phase 2
+             {
+                for (var i = 0; i < num_dot; i++) {
+                    //shuffle idx to get random order
+                    shuffled_idx = jsPsych.randomization.shuffle(shuffled_idx);
+                    trial_idx = shuffled_idx[i];
+                    for (var attempt = 1; attempt <= 3; attempt++) {
+                        //show location cue
+                        dot_cue_phase2 = {
+                      	type: jsPsychHtmlKeyboardResponse,
+                      	stimulus: shuffled_name_loc[trial_idx],
+                        prompt: "<p>Move your mouse to target location and press Enter</p>",
+                        extensions: [
+                        {type: jsPsychExtensionMouseTracking, params: {targets: ['#target']}}
+                        ]
+                        };
+
+                        timeline.push(dot_cue_phase2);
+                        //get mouse location
+                        //calculate error
+                        // error = ....
+                        //break the loop if error is less than 80 pixels//
+                        if (error < 80)  {
+                            break;
+                        };
+                    };
+                    //show feedback
+                    round_x = Math.round(dot_loc_x[trial_idx]/100) * 100;
+                    round_y = Math.round(dot_loc_y[trial_idx]/100) * 100;    
+                    dot_feedback = {
+                        type: jsPsychCanvasButtonResponse,
+                        stimulus: function(c) {
+                            filledCirc(c, circ_radius, 'black',100, 300);
+                        }, 
+                        canvas_size: [sc_width / 2  , sc_height / 2  ],
+                        choices: ['Press here to continue'],
+                        //choose prompt based on error size//
+                        prompt: feedback_text[Number(error < 80)]
+
+                    };
+                };            
+             };
+    }; 
+    var end_training = {
+  	type: jsPsychHtmlKeyboardResponse,
+   	stimulus: "Good job! you are done with traning. Now you will have to perform some basic math problems before going to the real test </p>Press any key to begin.</p>"
+ 	};
+	 // add the welcome trial to the timeline variable
+    timeline.push(end_training);
+	//distraction task : to reduce effect of lingering memory before going to the real task (10 unrelated arithmetic problems)
+    var numMathTr = 10;
+    var numberA = [];
+    var numberB = [];
+    for (var i = 0; i < numMathTr; i++){
+        var A = numberA[i]
+        var B = numberB[i]
+        var ans = A * B
+    }
+    // start the experiment
+    //text before starting...  
+    var intro_test = {
+  	type: jsPsychHtmlKeyboardResponse,
+   	stimulus: "Now it is the time for the real test! In each trial, the name of location will be shown. Move your mouse to where you think is the location of the place. Then press Enter to confirm response and proceed to the next trial</p>Press any key to begin.</p>"
+ 	};
+	 // add the welcome trial to the timeline variable
+    timeline.push(intro_test);
+    var test_error = []; //initialize test error
+    for (var i = 0; i < num_dot; i++) {
+    //shuffle idx to get random order
+    shuffled_idx = jsPsych.randomization.shuffle(shuffled_idx);
+    trial_idx = shuffled_idx[i];
+
+    //show location cue
+    dot_cue_test = {
+      	type: jsPsychHtmlKeyboardResponse,
+      	stimulus: shuffled_name_loc[trial_idx],
+        prompt: "<p>Move your mouse to target location and press Enter</p>",
+        extensions: [
+        {type: jsPsychExtensionMouseTracking, params: {targets: ['#target']}}
+        ]
+    };
+
+    timeline.push(dot_cue_test);
+    //get mouse location
+    //calculate error
+    // error = ....
+    // append error to an array
+
+    };  
+    //thank you text and end the experiment !
+
+    jsPsych.run(timeline);
+ </script>
+</html>
