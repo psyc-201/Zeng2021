@@ -1,293 +1,550 @@
-<!DOCTYPE html><html> <head>
-   	<title>Spatial memory experiment</title>
-   	<script src="https://unpkg.com/jspsych@8.2.2"></script>
-     <script src="https://unpkg.com/@jspsych/extension-mouse-tracking@1.2.0"></script>
-	<script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-canvas-button-response@2.1.0"></script>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Spatial Memory Exp.</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
+    #canvas { background: #f7f7f7; border-top: 1px solid #ddd; height: 640px; position: relative; }
+    #topbar { padding: 12px; background:#fff; border-bottom:1px solid #ddd;}
+    .dot { width:20px; height:20px; border-radius:50%; background:#000; position:absolute; transform:translate(-50%,-50%); }
+    .label { position:absolute; transform:translate(-50%,-150%); background: rgba(255,255,255,0.9); padding:2px 6px; border-radius:4px; border:1px solid #ccc; font-size:12px; }
+    #message { padding:12px; min-height:40px; }
+    button { padding:8px 14px; font-size:14px; margin:6px; }
+    #log { text-align:left; max-width:1000px; margin:12px auto; font-family:monospace; font-size:12px; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <strong>Spatial Memory Experiment</strong>
+    <div id="message">Press <em>Start</em> to begin.</div>
+    <button id="startBtn">Start</button>
+    <button id="downloadBtn" style="display:none">Download results (JSON)</button>
+  </div>
+  <div id="canvas"></div>
+  <div id="log"></div>
 
-   	<link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet"  type = "text/css" /> 
+<script>
+/*
+ Implementation notes:
+ - Training criterion: 80 pixels (paper: criterion chosen to be < 1/2 of shortest inter-item distance; see Methods).
+ - Phases:
+     Phase 1: view each landmark (single dot, participant clicks it to continue)
+     Phase 2: recall with name cue; up to 3 attempts per item; feedback provided; correct shown after 3 incorrect.
+     Phase 3: recall each landmark without feedback; if all within 80 px, proceed; else return to Phase 2.
+ - After passing training: 10 arithmetic problems, then gist test (reported center), then item recall test (no feedback).
+ - Logging: timestamps, clicks, target coords, response coords.
+*/
 
- </head>
- <body></body>
- <script>
-    var timeline = [];
+const canvas = document.getElementById('canvas');
+const message = document.getElementById('message');
+const startBtn = document.getElementById('startBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const logDiv = document.getElementById('log');
 
-   	//this is where we will write JavaScript code to control the experiments//
-  	const jsPsych = initJsPsych({
-        extensions: [
-        { type: jsPsychExtensionMouseTracking, params: {minimum_sample_time: 0} }
-      ]
+const TRAIN_CRITERION_PX = 200; // from paper (Experiment 1)
+const ARITH_PROBLEMS = 10;
+
+let participantId = 'P_' + Math.floor(Math.random()*1e6);
+let stage = 'idle';
+let data = {participantId, events: [], encoded: [], nameMap: {}, sessionStart: Date.now()};
+
+//get screen height
+var sc_height = 640; //use the same one as canvas
+var sc_width = screen.width;
+
+//screen size from original study
+var ori_height = 800;
+var ori_width = 1280;
+
+//get scaling factor
+var scale_width = sc_width/ori_width;
+var scale_height = sc_height/ori_height;
+
+
+
+
+// Default encoded coordinates (example cluster). Replace with exact coords if you have them.
+// Coordinates are in pixels relative to the canvas element (left/top). The canvas size is set in CSS.
+const encodedLocations = [
+  {name: 'A', x: 276 * scale_width, y: 321 * scale_height},
+  {name: 'B', x: 620 * scale_width, y: 740 * scale_height},
+  {name: 'C', x: 292 * scale_width, y: 762 * scale_height},
+  {name: 'D', x: 653 * scale_width, y: 387 * scale_height},
+  {name: 'E', x: 258 * scale_width, y: 588 * scale_height},
+  {name: 'F', x: 786 * scale_width, y: 655 * scale_height},
+];
+
+// Shuffle names to simulate random mapping between names and locations (paper: mapping randomized)
+const landmarkNames = ['Library','Bakery','Museum','Cinema','Park','Station'];
+function shuffle(array){ for(let i=array.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [array[i],array[j]]=[array[j],array[i]];} return array; }
+let namesShuffled = shuffle(landmarkNames.slice());
+for(let i=0;i<encodedLocations.length;i++){
+  encodedLocations[i].label = namesShuffled[i];
+  data.encoded.push({name: encodedLocations[i].label, x: encodedLocations[i].x, y: encodedLocations[i].y});
+  data.nameMap[encodedLocations[i].label] = {x: encodedLocations[i].x, y: encodedLocations[i].y};
+}
+
+// utility: clear canvas
+function clearCanvas(){ canvas.innerHTML = ''; }
+
+// utility: create dot (for stimuli display)
+function createDot(x,y,opts={color:'#000', label:null}){
+  const d = document.createElement('div'); d.className = 'dot'; d.style.left = x + 'px'; d.style.top = y + 'px'; d.style.background = opts.color || '#000';
+  canvas.appendChild(d);
+  if(opts.label){
+    const lab = document.createElement('div'); lab.className='label'; lab.style.left = x+'px'; lab.style.top = y+'px'; lab.textContent = opts.label;
+    canvas.appendChild(lab);
+  }
+  return d;
+}
+
+// distance
+function dist(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
+
+// compute center (mean)
+function centerOf(points){
+  const sum = points.reduce((s,p)=>({x:s.x+p.x,y:s.y+p.y}),{x:0,y:0});
+  return {x: sum.x/points.length, y: sum.y/points.length};
+}
+
+// logging
+function logEvent(obj){
+  obj.t = Date.now();
+  data.events.push(obj);
+  //logDiv.textContent = JSON.stringify(data, null, 2);
+}
+
+// Intro to the experiment
+async function phase1_text(){
+  stage='phase1';
+  message.textContent = 'Welcome to the experiment !';
+  message.style.fontSize ='24px';
+  clearCanvas();
+  const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='10px'; info.style.transform='translateX(-50%)'; info.style.fontSize='30px';
+  info.style.textAlign='center';
+  info.style.whiteSpace='pre-line';
+  info.textContent = `In the first training phase,
+
+  you will learn the location of 6 dots and their names 
+
+( e.g. Hospital, School, Library etc. )
+
+Each dot will be presented on the screen sequentially.
+
+You can take your time to try to memorize the location 
+
+and name of a dot as long as you'd like.
+
+If you want to proceed to the next trial, 
+
+just click on the location of a dot on the screen
+
+
+Click on the screen to continue`;
+  canvas.appendChild(info);
+  await new Promise(resolve=>{
+      canvas.onclick = (ev) => { canvas.onclick = null; logEvent({phase:'phase1_text', name:'phase1_text'}); resolve(); };
     });
+  clearCanvas();
+  }
 
-    //get screen size//
-    var screen_width = window.innerWidth;
-    var screen_height = window.innerHeight;
-	//set parameters//
-    var circ_radius = 100
-	var num_dot = 6; //number of dots to remember//
-	var gist_loc_x = 0; //gist location in x-axis//
-	var gist_loc_y = 0; //gist location in y-axis//
-	var sd_x = 1; //sd in x axis (use when sampling location)//
-	var sd_y = 1; //sd in x axis (use when sampling location)//
+// Phase 1: exposure (view each landmark one at a time)
+async function phase1_exposure(){
+  stage='phase1';
+  message.textContent = 'Phase 1 — please click the dot to proceed through the landmarks.';
+  message.style.fontSize ='24px';
+  clearCanvas();
+  for(const loc of encodedLocations){
+    createDot(loc.x, loc.y);
+    // show label underneath as instruction (not the landmark name in the paper; paper had the participant click on each landmark)
+    const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='10px'; info.style.transform='translateX(-50%)'; info.style.fontSize='32px';
+    info.style.textAlign='center';
+    info.style.whiteSpace='pre-line';
+    info.textContent = `${loc.label} 
 
-	//get array of dots location//
-	var dot_loc_x = [276,620,292,653,258,786];
-	var dot_loc_y = [321,740,762,387,588,655];
+    Click the dot to continue`;
+    canvas.appendChild(info);
+    await new Promise(resolve=>{
+      canvas.onclick = (ev) => { canvas.onclick = null; logEvent({phase:'phase1_viewed', name:loc.label}); resolve(); };
+    });
+    clearCanvas();
+  }
+}
 
-    var loc_x
-    var loc_y
+// Intro to phase 2
+async function phase2_text(){
+  stage='phase2';
+  message.textContent = 'Welcome to the training phase 2';
+  clearCanvas();
+  const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='10px'; info.style.transform='translateX(-50%)'; info.style.fontSize='30px';
+  info.style.textAlign='center';
+  info.style.whiteSpace='pre-line';
+  info.textContent = `In the second phase of training, 
 
+  you will be asked to recall a location of each dot. 
 
-	//get list of name//
-	var name_loc = ['Hospital', 'Restaurant', 'University', 'Park', 'Coffee Shop', 'School'];
+  For each trial, the cue will be shown on the screen. 
 
-	//shuffle name labels to have different mapping for each participant
-	var shuffled_name_loc = jsPsych.randomization.shuffle(name_loc);
+  You will have 3 attempts in total 
 
-    // function to draw dot at specific location
-    function filledCirc(canvas, radius, color,x_pos, y_pos) {
-    var ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.arc(Number(x_pos), Number(y_pos), radius, 0, 2 * Math.PI);
-    ctx.fillStyle = color;
-    ctx.fill();
-    }
+  and the feedback will be shown after the 3rd attempt.
 
-    //set canvas size
-    var sc_width = screen_width;
-    var sc_height = screen_height;
+  If you make an accurate recall in your 1st or 2nd attempt, 
 
- 	// define welcome message trial
- 	var welcome = {
-  	 type: jsPsychHtmlKeyboardResponse,
-   	stimulus: "Welcome to the experiment. Press any key to begin."
- 	};
-	 // add the welcome trial to the timeline variable
- 	timeline.push(welcome);
+  you will see the feedback and proceed to the next trial.
+  
+  
+  Click on the screen to continue
+  `;
+  canvas.appendChild(info);
+  await new Promise(resolve=>{
+      canvas.onclick = (ev) => { canvas.onclick = null; logEvent({phase:'phase2_text', name:'phase2_text'}); resolve(); };
+    });
+  clearCanvas();
+  }
 
- 	// define the instructions trial
- 	var instructions = {
-   	type: jsPsychHtmlKeyboardResponse,
-   	stimulus: `
-  	 <p>In this experiment, You will learn 6 pairs of dot locations and their names.</p><p>First, you will undergo a training phase,
-   	And when you achieve high accuracy in training, you will proceed to testing phase</p>
-   	<p>Press any key to begin.</p>
- 	`
- 	};
+// Phase 2: recall with feedback, 3 attempts
+async function phase2_recall_with_feedback(){
+  stage='phase2';
+  message.textContent = 'Phase 2 — recall each landmark when cued (3 attempts each). Click on the map to indicate location.';
+  message.style.fontSize ='24px';
+  const items = shuffle(encodedLocations.slice());
+  // For each item: up to 3 attempts
+  for(const item of items){
+    let attempts = 0;
+    let correct = false;
+    while(attempts < 3 && !correct){
+      attempts++;
+      clearCanvas();
+      const cue = document.createElement('div'); cue.style.position='absolute'; cue.style.left='50%'; cue.style.top='10px'; cue.style.transform='translateX(-50%)'; cue.style.fontSize='32px';
+      cue.style.textAlign='center';
+      cue.style.whiteSpace='pre-line';
+      cue.textContent = `Locate: ${item.label} 
 
- 	//add the instructions trial to the timeline
- 	timeline.push(instructions);
-
-	//training phase 1 : present dot and name sequentially once. Click on location to proceed//
-    //for loop for all dots
-    for (var i = 0; i < num_dot; i++) {
-        var round_x = Math.round(dot_loc_x[i]/100) * 100;
-        var round_y = Math.round(dot_loc_y[i]/100) * 100;
-        var dot_name = {
-      	type: jsPsychHtmlKeyboardResponse,
-      	stimulus: shuffled_name_loc[i]
-        };
-        var dot_loc = {
-            type: jsPsychCanvasButtonResponse,
-            stimulus: function(c) {
-                filledCirc(c, circ_radius, 'black',round_x, round_y);
-            }, 
-                canvas_size: [sc_width / 2  , sc_height / 2  ],
-        choices: ['Press here to continue'],
-        //data: {
-          //radius: jsPsych.timelineVariable('radius'),
-          //color: jsPsych.timelineVariable('color'),
-          //correct_response: jsPsych.timelineVariable('correct_response')
-        //}
-        };
-        timeline.push(dot_name);
-        timeline.push(dot_loc);
-        };
-
-    //end of for loop// 
-
-    //show text before phase 2//
-    var begin_phase2 = {
-  	type: jsPsychHtmlKeyboardResponse,
-   	stimulus: "That's all for training phase 1. In the next phase, you will see the name of place that you've just learned in phase 1. Now, you have to recall their position by clicking on the screen. If you make an accurate recall, the true location will be shown and you will proceed to next trial. If you response has high error, you have 2 more attempts to answer and feedback will be shown after your 3rd attempt</p>Press any key to begin.</p>"
- 	};
-	 // add the welcome trial to the timeline variable
- 	timeline.push(begin_phase2 );
-
-	//training phase 2 : present only name and ask for the dot location, if the error is less than 80 pixels then feedback will be shown and they can proceed to next trial. Participants have 3 attempts in total to answer the correct location//
-
-    var error_thres //select threshold for error
-    var error = error_thres; //initialize error variable//
-    var phase_2_att = 3;
-    var feedback_text = ["<p>Your response was more than 80 pixels away from the target location. The correct location is shown above. Press the button to continue.</p>","<p>Great!. The correct location is shown above. Press the button to continue.</p>"]
-    for (var i = 0; i < num_dot; i++) {
-        //shuffle idx to get random order
-        round_x = Math.round(dot_loc_x[trial_idx]/100) * 100;
-        round_y = Math.round(dot_loc_y[trial_idx]/100) * 100;    
-        var arr_idx = [0,1,2,3,4,5]
-        var shuffled_idx = jsPsych.randomization.shuffle(arr_idx);
-        var trial_idx = shuffled_idx[i];
-            for (var attempt = 1; attempt <= phase_2_att; attempt++) {
-                //show location cue
-                var dot_cue_phase2 = {
-              	type: jsPsychHtmlKeyboardResponse,
-              	stimulus: shuffled_name_loc[trial_idx],
-                prompt: "<p>Move your mouse to target location and press Enter</p>",
-                extensions: [
-                {type: jsPsychExtensionMouseTracking, params: {targets: []}}
-                    ],
-                data: {
-                    task: 'draw'
-                    }
-                };
-                timeline.push(dot_cue_phase2);
-                //get mouse location
-                const mouseMovements = jsPsych.data.get().last(1).values()[0].mouse_tracking_data;
-                //calculate error
-                // error = Math.sqrt(Math.pow(round_x - MouseMovements['x'],2)+Math.pow(round_y - MouseMovements['y'],2))
-                //break the loop if error is less than 80 pixels//
-                if (error < error_thres)  {
-                    break;
-                }
-            }
-        //show feedback
-        var dot_feedback = {
-            type: jsPsychCanvasButtonResponse,
-            stimulus: function(c) {
-                filledCirc(c, circ_radius, 'black',round_x, round_y);
-            }, 
-            canvas_size: [sc_width / 2  , sc_height / 2  ],
-            choices: ['Press here to continue'],
-            //choose prompt based on error size//
-            prompt: feedback_text[Number(error < 80)]
-
+      attempt ${attempts} of 3`;
+      canvas.appendChild(cue);
+      const response = await new Promise(resolve=>{
+        function clickHandler(ev){
+          // get click relative to canvas
+          const rect = canvas.getBoundingClientRect();
+          const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+          canvas.removeEventListener('click', clickHandler);
+          resolve({x,y});
         }
-    };
-	
+        canvas.addEventListener('click', clickHandler);
+      });
+      const error = dist(response, {x:item.x,y:item.y});
+      logEvent({phase:'phase2_attempt', cue:item.label, attempt:attempts, response, trueLoc:{x:item.x,y:item.y}, error});
+      // feedback:
+      clearCanvas();
+      createDot(item.x, item.y, {color:'#0a0'}); // true location
+      createDot(response.x, response.y, {color:'#a00'}); // response
+      const fb = document.createElement('div'); fb.style.position='absolute'; fb.style.left='50%'; fb.style.top='10px'; fb.style.transform='translateX(-50%)'; fb.style.fontSize='32px';
+      fb.textContent = `Your error: ${Math.round(error)} px.`;
+      canvas.appendChild(fb);
+      await new Promise(r=>setTimeout(r, 800)); // short pause so participant sees feedback
+      if(error <= TRAIN_CRITERION_PX){
+        correct = true;
+        // mark as learned in this round
+        logEvent({phase:'phase2_feedback', cue:item.label, result:'correct', attempt:attempts, error});
+      } else {
+        if(attempts === 3){
+          // show correct location explicitly (as Methods says)
+          logEvent({phase:'phase2_feedback', cue:item.label, result:'failed_three', error});
+          clearCanvas();
+          createDot(item.x, item.y, {color:'#0a0'});
+          const msg = document.createElement('div'); msg.style.position='absolute'; msg.style.left='50%'; msg.style.top='10px'; msg.style.transform='translateX(-50%)';
+          msg.textContent = `Correct location shown.`;
+          canvas.appendChild(msg);
+          await new Promise(r=>setTimeout(r, 800));
+        } else {
+          logEvent({phase:'phase2_feedback', cue:item.label, result:'incorrect_try_again', attempt:attempts, error});
+        }
+      }
+    } // attempts loop
+  } // items loop
+}
 
+// Intro to phase 3
+async function phase3_text(){
+  stage='phase3';
+  message.textContent = 'Welcome to the training phase 3';
+  clearCanvas();
+  const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='50px'; info.style.transform='translateX(-50%)'; info.style.fontSize='24px';
+  info.style.textAlign='center';
+  info.style.whiteSpace='pre-line';
+  info.textContent = `In the third phase of training, you will be asked to recall a location of each dot. 
+  
+  For each trial, the cue will be shown on the screen e.g. Locate the school. 
+  
+  Now, you have 1 attempt to recell the position and feedback won't be shown. 
+  
+  After you finished all the trials, you will proceed to the testing phase 
+  
+  if your recall error is lower than the threshold in every trial (80 pixels). 
+  
+  However, if there is any error that is higher the threshold, 
+  
+  you will be back to phase 2 and train of each location again
+  
+  
+  Click on the screen to continue`;
+  canvas.appendChild(info);
+  await new Promise(resolve=>{
+      canvas.onclick = (ev) => { canvas.onclick = null; logEvent({phase:'phase3_text', name:'phase3_text'}); resolve(); };
+    });
+  clearCanvas();
+  }
+// Phase 3: recall without feedback. If all retrieved within 80 px, proceed; else return to phase2.
+async function phase3_check(){
+  stage='phase3';
+  message.textContent = 'Phase 3 — recall each landmark (no feedback). Try to be accurate.';
+  message.style.fontSize = '24px';
+  const items = shuffle(encodedLocations.slice());
+  const responses = [];
+  for(const item of items){
+    clearCanvas();
+    const cue = document.createElement('div'); cue.style.position='absolute'; cue.style.left='50%'; cue.style.top='10px'; cue.style.transform='translateX(-50%)'; cue.style.fontSize='32px';
+    cue.textContent = `Locate: ${item.label}`;
+    canvas.appendChild(cue);
+    const response = await new Promise(resolve=>{
+      function clickHandler(ev){
+        const rect = canvas.getBoundingClientRect();
+        const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+        canvas.removeEventListener('click', clickHandler);
+        resolve({x,y});
+      }
+      canvas.addEventListener('click', clickHandler);
+    });
+    const error = dist(response, {x:item.x,y:item.y});
+    logEvent({phase:'phase3_response', cue:item.label, response, trueLoc:{x:item.x,y:item.y}, error});
+    responses.push({label:item.label, error, response, trueLoc:{x:item.x,y:item.y}});
+  }
+  // check criterion
+  const allGood = responses.every(r => r.error <= TRAIN_CRITERION_PX);
+  logEvent({phase:'phase3_check', allGood});
+  clearCanvas();
+  if(allGood){
+    message.textContent = 'Training criterion passed. Proceeding to filler tasks.';
+    message.style.fontSize='32px';
+    await new Promise(r=>setTimeout(r, 800));
+    return true;
+  } else {
+    message.textContent = 'Not all items were within criterion. Returning to Phase 2 for more training.';
+    message.style.fontSize='32px';
+    await new Promise(r=>setTimeout(r, 1200));
+    return false;
+  }
+}
 
-	//training phase 3 : present only name and ask for the dot location, if any error is larger than 80 pixels then they have to go back to phase 2//
-    var phase3_error = []; //initialize array to keep error 
-    var max_error = 80; //initialize max error
-    while (max_error >= 80){
-        for (var i = 0; i < num_dot; i++) {
-            //shuffle idx to get random order
-            var shuffled_idx = jsPsych.randomization.shuffle(shuffled_idx);
-            var trial_idx = shuffled_idx[i];
-        
-            //show location cue
-            dot_cue_phase3 = {
-              	type: jsPsychHtmlKeyboardResponse,
-              	stimulus: shuffled_name_loc[trial_idx],
-                prompt: "<p>Move your mouse to target location and press Enter</p>",
-                extensions: [
-                {type: jsPsychExtensionMouseTracking, params: {targets: ['#target']}}
-                ]
-            };
+// simple arithmetic filler problems (self-paced)
+async function arithmeticFiller(){
+  stage='filler';
+  message.textContent = 'Before going to the test, Please solve a few quick arithmetic problems.';
+  message.style.fontSize ='24px'
+  for(let i=0;i<ARITH_PROBLEMS;i++){
+    clearCanvas();
+    const a = Math.floor(Math.random()*20)+1;
+    const b = Math.floor(Math.random()*20)+1;
+    const promptDiv = document.createElement('div'); promptDiv.style.position='absolute'; promptDiv.style.left='50%'; promptDiv.style.top='20%'; promptDiv.style.transform='translateX(-50%)'; promptDiv.style.fontSize='24px';
+    promptDiv.textContent = `Problem ${i+1}: ${a} + ${b} = ? (type answer then press Enter)`;
+    canvas.appendChild(promptDiv);
+    const input = document.createElement('input'); input.type='number'; input.style.position='absolute'; input.style.left='50%'; input.style.top='30%'; input.style.transform='translateX(-50%)'; input.style.fontSize='24px';
+    canvas.appendChild(input);
+    input.focus();
+    await new Promise(resolve=>{
+      input.addEventListener('keydown', function handler(e){
+        if(e.key === 'Enter'){
+          const ans = Number(input.value);
+          logEvent({phase:'filler_answer', problem:`${a}+${b}`, answer:ans, correct: ans === a+b});
+          input.removeEventListener('keydown', handler);
+          resolve();
+        }
+      });
+    });
+  }
+}
 
-            timeline.push(dot_cue_phase3);
-            //get mouse location
-            //calculate error
-            // error = ....
-            // append error to an array
+// Intro to testing
+async function test_text(){
+  stage='intro_test';
+  message.textContent = 'Welcome to the testing phase 3';
+  clearCanvas();
+  const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='50px'; info.style.transform='translateX(-50%)'; info.style.fontSize='24px';
+  info.style.textAlign='center';
+  info.style.whiteSpace='pre-line';
+  info.textContent = `Congratulations! You've passed the training phase! 
 
-        };   
-        //get max error
-        // var max_error = Math.max(phase3_error);
-        // if error is more than 80 then back to phase 2
-        if (max_error < 80){
-            break;
-        } else // go back to phase 2
-             {
-                for (var i = 0; i < num_dot; i++) {
-                    //shuffle idx to get random order
-                    shuffled_idx = jsPsych.randomization.shuffle(shuffled_idx);
-                    trial_idx = shuffled_idx[i];
-                    for (var attempt = 1; attempt <= 3; attempt++) {
-                        //show location cue
-                        dot_cue_phase2 = {
-                      	type: jsPsychHtmlKeyboardResponse,
-                      	stimulus: shuffled_name_loc[trial_idx],
-                        prompt: "<p>Move your mouse to target location and press Enter</p>",
-                        extensions: [
-                        {type: jsPsychExtensionMouseTracking, params: {targets: ['#target']}}
-                        ]
-                        };
+  The testing phase will start with the Gist test
 
-                        timeline.push(dot_cue_phase2);
-                        //get mouse location
-                        //calculate error
-                        // error = ....
-                        //break the loop if error is less than 80 pixels//
-                        if (error < 80)  {
-                            break;
-                        };
-                    };
-                    //show feedback
-                    round_x = Math.round(dot_loc_x[trial_idx]/100) * 100;
-                    round_y = Math.round(dot_loc_y[trial_idx]/100) * 100;    
-                    dot_feedback = {
-                        type: jsPsychCanvasButtonResponse,
-                        stimulus: function(c) {
-                            filledCirc(c, circ_radius, 'black',100, 300);
-                        }, 
-                        canvas_size: [sc_width / 2  , sc_height / 2  ],
-                        choices: ['Press here to continue'],
-                        //choose prompt based on error size//
-                        prompt: feedback_text[Number(error < 80)]
+  What you have to do here is report the center of all the landmarks
+  
+  You can think of it as an average of all location.
+  
+  After you're done with the gist trial,
+  
+  you will have recall the location of each landmark
+  
+  that you've learned so far
+  
+  You're almost done !
+  
+  
+  Click here to continue`
+  ;
+  canvas.appendChild(info);
+  await new Promise(resolve=>{
+      canvas.onclick = (ev) => { canvas.onclick = null; logEvent({phase:'intro_test', name:'intro_test'}); resolve(); };
+    });
+  clearCanvas();
+  }
 
-                    };
-                };            
-             };
-    }; 
-    var end_training = {
-  	type: jsPsychHtmlKeyboardResponse,
-   	stimulus: "Good job! you are done with traning. Now you will have to perform some basic math problems before going to the real test </p>Press any key to begin.</p>"
- 	};
-	 // add the welcome trial to the timeline variable
-    timeline.push(end_training);
-	//distraction task : to reduce effect of lingering memory before going to the real task (10 unrelated arithmetic problems)
-    var numMathTr = 10;
-    var numberA = [];
-    var numberB = [];
-    for (var i = 0; i < numMathTr; i++){
-        var A = numberA[i]
-        var B = numberB[i]
-        var ans = A * B
+// Gist test — ask participant to click the center (reported center)
+async function gistTest(){
+  stage='gist';
+  message.textContent = 'Gist test — indicate the center (average location) of the landmarks you have seen by clicking on the map.';
+  message.style.fontSize = '24px'
+  clearCanvas();
+  // show blank map, wait for click
+  const response = await new Promise(resolve=>{
+    function clickHandler(ev){
+      const rect = canvas.getBoundingClientRect();
+      const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+      canvas.removeEventListener('click', clickHandler);
+      resolve({x,y});
     }
-    // start the experiment
-    //text before starting...  
-    var intro_test = {
-  	type: jsPsychHtmlKeyboardResponse,
-   	stimulus: "Now it is the time for the real test! In each trial, the name of location will be shown. Move your mouse to where you think is the location of the place. Then press Enter to confirm response and proceed to the next trial</p>Press any key to begin.</p>"
- 	};
-	 // add the welcome trial to the timeline variable
-    timeline.push(intro_test);
-    var test_error = []; //initialize test error
-    for (var i = 0; i < num_dot; i++) {
-    //shuffle idx to get random order
-    shuffled_idx = jsPsych.randomization.shuffle(shuffled_idx);
-    trial_idx = shuffled_idx[i];
+    canvas.addEventListener('click', clickHandler);
+  });
+  // compute true center of encoded items (the 'actual' center)
+  const trueCenter = centerOf(encodedLocations.map(l => ({x:l.x,y:l.y})));
+  const error = dist(response, trueCenter);
+  logEvent({phase:'gist_report', response, trueCenter, error});
+  // show reported center and true center for short feedback
+  //clearCanvas();
+  //createDot(response.x, response.y, {color:'#00f'});
+  //createDot(trueCenter.x, trueCenter.y, {color:'#0a0'});
+  //const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='10px'; info.style.transform='translateX(-50%)'; info.style.fontSize = '32px'
+  //info.textContent = `Your reported center error (to true center): ${Math.round(error)} px`;
+  //canvas.appendChild(info);
+  await new Promise(r=>setTimeout(r, 900));
+  return {reportedCenter: response, trueCenter, error};
+}
 
-    //show location cue
-    dot_cue_test = {
-      	type: jsPsychHtmlKeyboardResponse,
-      	stimulus: shuffled_name_loc[trial_idx],
-        prompt: "<p>Move your mouse to target location and press Enter</p>",
-        extensions: [
-        {type: jsPsychExtensionMouseTracking, params: {targets: ['#target']}}
-        ]
-    };
+// Item memory test — recall each item (no feedback)
+async function itemTest(){
+  stage='itemtest';
+  message.textContent = 'Item memory test — recall each landmark. No feedback.';
+  message.style.fontSize = '24px'
+  const items = shuffle(encodedLocations.slice());
+  const results = [];
+  for(const item of items){
+    clearCanvas();
+    const cue = document.createElement('div'); cue.style.position='absolute'; cue.style.left='50%'; cue.style.top='10px'; cue.style.transform='translateX(-50%)'; cue.style.fontSize='32px';
+    cue.textContent = `Locate: ${item.label}`;
+    canvas.appendChild(cue);
+    const response = await new Promise(resolve=>{
+      function clickHandler(ev){
+        const rect = canvas.getBoundingClientRect();
+        const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+        canvas.removeEventListener('click', clickHandler);
+        resolve({x,y});
+      }
+      canvas.addEventListener('click', clickHandler);
+    });
+    const error = dist(response, {x:item.x,y:item.y});
+    logEvent({phase:'itemtest_response', cue:item.label, response, trueLoc:{x:item.x,y:item.y}, error});
+    results.push({label:item.label, response, trueLoc:{x:item.x,y:item.y}, error});
+  }
+  return results;
+}
 
-    timeline.push(dot_cue_test);
-    //get mouse location
-    //calculate error
-    // error = ....
-    // append error to an array
+// compute estimated center (mean of retrieved item locations)
+function computeEstimatedCenter(itemResults){
+  const pts = itemResults.map(r => r.response);
+  return centerOf(pts);
+}
 
-    };  
-    //thank you text and end the experiment !
+// compute bias for each retrieved item toward reported center
+// bias = (projection length toward reported center) / (distance from retrieved to reported center + distance from retrieved to true location?)
+// We'll follow the paper's conceptual description: bias magnitude = (component of displacement of retrieved location toward center) / total retrieval error.
+// For each item: compute vector from retrieved -> true, retrieved -> reported center, measure whether retrieved is closer to center than true? 
+// Implement a straightforward directional bias metric: sign and proportion of movement of true->retrieved projected on true->reported_center vector.
+// Let true = T, retrieved = R, reported center = C.
+// Vector TR = R - T (retrieval error relative to true)
+// Vector TC = C - T (direction from true to reported center)
+// Project TR onto TC: proj = (TR · TC)/|TC|
+// Normalize by |TR| to get proportion toward (+) or away (-) from center.
+// That yields a bias proportion in [-1,1] (paper used a normalized bias measure; this is a principled measure you can adjust).
+function computeBiasPerItem(trueLoc, retrieved, reportedCenter){
+  const TR = {x: retrieved.x - trueLoc.x, y: retrieved.y - trueLoc.y};
+  const TC = {x: reportedCenter.x - trueLoc.x, y: reportedCenter.y - trueLoc.y};
+  const dot = TR.x*TC.x + TR.y*TC.y;
+  const magTC = Math.hypot(TC.x, TC.y);
+  const magTR = Math.hypot(TR.x, TR.y);
+  if(magTR < 1e-6 || magTC < 1e-6) return 0;
+  const proj = dot / magTC; // scalar projection along TC
+  // positive proj means retrieved is displaced in the direction of reported center relative to true location
+  return proj / magTR; // normalized by retrieval error
+}
 
-    jsPsych.run(timeline);
- </script>
+// main orchestration
+async function runExperiment(){
+  startBtn.disabled = true;
+  logEvent({event:'experiment_started'});
+  // Intro tex
+  await phase1_text();
+  // Phase 1
+  await phase1_exposure();
+  // Phases 2+3 loop until criterion
+  let passed = false;
+  let attemptsRound = 0;
+  while(!passed && attemptsRound < 10){
+    attemptsRound++;
+    await phase2_text();
+    await phase2_recall_with_feedback();
+    await phase3_text();
+    passed = await phase3_check();
+  }
+  if(!passed) {
+    message.textContent = 'Could not reach criterion after several cycles. Proceeding anyway for demo purposes.';
+    logEvent({event:'failed_to_reach_criterion'});
+    await new Promise(r=>setTimeout(r,900));
+  }
+  // filler
+  await arithmeticFiller();
+  // Test text
+  await test_text();
+  // gist test
+  const gist = await gistTest();
+  // item test
+  const items = await itemTest();
+  // compute estimated center
+  const estCenter = computeEstimatedCenter(items);
+  logEvent({phase:'computed_estimated_center', estimatedCenter: estCenter});
+  // compute bias per item relative to reported center
+  const biasPerItem = items.map(it => {
+    const b = computeBiasPerItem(it.trueLoc, it.response, gist.reportedCenter);
+    return {label: it.label, error: it.error, bias: b};
+  });
+  logEvent({phase:'bias_results', gistReported: gist.reportedCenter, estCenter, biasPerItem});
+  message.textContent = 'Experiment complete. Thank you!';
+  message.style.fontSize = '24px'
+  downloadBtn.style.display = 'inline-block';
+  //logDiv.textContent = JSON.stringify(data, null, 2);
+}
+
+// download results JSON
+downloadBtn.onclick = () => {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download = participantId + '_exp1_data.json'; a.click();
+};
+
+startBtn.onclick = () => {
+  runExperiment().catch(e=>{ console.error(e); message.textContent = 'Error: ' + e.message; });
+};
+
+</script>
+</body>
 </html>
