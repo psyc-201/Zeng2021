@@ -1,5 +1,5 @@
 ---
-title: "Replication of Study "Tracking the relation between gist and item memory over the course of long-term memory consolidation" by Tima Zeng et al. (2021, eLife)"
+title: "Replication of Study Tracking the relation between gist and item memory over the course of long-term memory consolidation by Tima Zeng et al. (2021, eLife)"
 author: "Chattarin Poungtubtim (cpoungtubtim@ucsd.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
@@ -36,15 +36,15 @@ They do not report any effect size in the paper. On average, they have around 40
 90-100 subjects from UCSD psychology undergraduate students and separate them into 3 different groups
 Exclusion criteria
 => bad performance compared to group average : lower than 3 SD below average in any testing sessions (in either individual or gist memory trials)
-=> bads performance compared to guessing : if any participants have guessed (having more than 267 pixels error in invidual memory condition and more than 270 pixels in gist memory condition) in at least 50% of trials of indvidual memory gist memory trial in either session
+=> bads performance compared on gist trial : if the gist response is located outside the boundary of learned landmarks
 => drop out of second session
 
 ### Materials 
 The experiment will be built as exactly as described in Zeng et al. using JSPsych 
 
 
-### Procedure (I just sent an email to corresponding author for more details on how to code an experiment. I will put in more details when I get more information !)
-Experiment :  During training phase 1, a dot with a size of .... pixels will be presented along the text displaying the landmark corresponding to the dot. For phase 2, the landmark text will be displared on the screen and participants need to click on the location that they think represent the dot. Nexy, the feedback will be shown and participants learned the correct location of a landamark. For training phase 3, the trial proceeds in the similar manner to phase 2 but there is no feedback. The testing session is also proceed in the same pattern as training phase 3 but there will be an additional trial asking for participants to respond for aan average location of all landmarks in the set they've just learned. The location of dots will be the same across participants. Only mapping between dot location and landmark name would change across participants, The behavioral response will be collected by recording the position (x,y) that participants click on the screen during each trials. Reaction time is also collected for possible additional analysis
+### Procedure 
+Experiment :  During training phase 1, a dot with a size of 15 pixels will be presented along the text displaying the landmark corresponding to the dot. For phase 2, the landmark text will be displared on the screen and participants need to click on the location that they think represent the dot. Nexy, the feedback will be shown and participants learned the correct location of a landamark. For training phase 3, the trial proceeds in the similar manner to phase 2 but there is no feedback. The testing session is also proceed in the same pattern as training phase 3 but there will be an additional trial asking for participants to respond for aan average location of all landmarks in the set they've just learned. The location of dots will be the same across participants. Only mapping between dot location and landmark name would change across participants, The behavioral response will be collected by recording the position (x,y) that participants click on the screen during each trials. Reaction time is also collected for possible additional analysis
 
 Participants will be recruited online via SONA system. In session 1, they will have to finish 3 training phases and unrelated arithmetric task in order to start the testing phase. After they finish the 1st session, they would be asked to return for 2nd session at varied intervals. Here, they will receive a credit when they are done with 2 sessions. 
 
@@ -66,7 +66,7 @@ Statistics
 
 To test how gist and item  memory errors change over time, we would perform 3 (time interval : 24 hr, 1 week, 1 month) x 2 (item memory, gist memory) aligned ranks transformation ANOVA. Futheremore, we will use two-tailed Mann-Whitney tests to compare error change between groups
 To compare whether observed bias is different from simulated item-only bias over time, we conducted a 2 (session: Session 1 vs. Session 2) x 3 (delay groups: 24 hr, 1 week, and 1 month) ANOVA. Next we will use two-tailed paired t-tests for post-hoc comparison. 
-Lastly, we will use the same statistical tests (2 x 3 ANOVA and two-tailed pair t-tests to determine whether observe bias become more similar simulated gist-based bias overtime. 
+Lastly, we will use the same statistical tests 2 x 3 ANOVA and two-tailed pair t-tests to determine whether observe bias become more similar simulated gist-based bias overtime. 
 
 
 ### Reliability and validity
@@ -77,11 +77,11 @@ Normally, the measurement of memory bias can be vary. Some studies use a proport
 
 ### Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect. 
+Instead of collecting data onsite like in original paper, we collect data online via SONA system. In doing so, we make the change so that the screen size remains the same across all computers by setting canvas size as 1200 * 640 pixels (1280 * 800 pixels in original paper). We also increase error threshold from 80 to 160 pixels in training phase 3 due to feedback during pilot. 
 
 ### Methods Addendum (Post Data Collection)
 
-You can comment this section out prior to final report with data collection.
+
 
 #### Actual Sample
   Sample size, demographics, data exclusions based on rules spelled out in analysis plan
@@ -97,17 +97,7 @@ You can comment this section out prior to final report with data collection.
 
 Data preparation following the analysis plan.
 	
-```{r include=F}
-### Data Preparation
 
-#### Load Relevant Libraries and Functions
-
-#### Import data
-
-#### Data exclusion / filtering
-
-#### Prepare data for analysis - create columns etc.
-```
 
 ### Confirmatory analysis
 
