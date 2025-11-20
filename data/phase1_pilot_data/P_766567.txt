@@ -1,0 +1,806 @@
+{
+  "participantId": "P_766567",
+  "events": [
+    {
+      "event": "experiment_started",
+      "t": 1763101772781
+    },
+    {
+      "phase": "consent_text",
+      "name": "consent_text",
+      "t": 1763101774254
+    },
+    {
+      "phase": "phase1_text",
+      "name": "phase1_text",
+      "t": 1763101775843
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "Cinema",
+      "t": 1763101790649
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "Museum",
+      "t": 1763101793333
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "Station",
+      "t": 1763101796262
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "Park",
+      "t": 1763101799974
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "Bakery",
+      "t": 1763101802862
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "Library",
+      "t": 1763101805770
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1763101807874
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Library",
+      "attempt": 1,
+      "response": {
+        "x": 1128,
+        "y": 464.5
+      },
+      "trueLoc": {
+        "x": 1061.1000000000001,
+        "y": 524
+      },
+      "error": 89.53133529664338,
+      "t": 1763101812962
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Library",
+      "result": "correct",
+      "attempt": 1,
+      "error": 89.53133529664338,
+      "t": 1763101813764
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Museum",
+      "attempt": 1,
+      "response": {
+        "x": 882,
+        "y": 566.5
+      },
+      "trueLoc": {
+        "x": 837,
+        "y": 592
+      },
+      "error": 51.72281894870001,
+      "t": 1763101818298
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Museum",
+      "result": "correct",
+      "attempt": 1,
+      "error": 51.72281894870001,
+      "t": 1763101819100
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Park",
+      "attempt": 1,
+      "response": {
+        "x": 875,
+        "y": 328.5
+      },
+      "trueLoc": {
+        "x": 881.5500000000001,
+        "y": 309.6
+      },
+      "error": 20.0028123022739,
+      "t": 1763101823665
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 20.0028123022739,
+      "t": 1763101824466
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Cinema",
+      "attempt": 1,
+      "response": {
+        "x": 422,
+        "y": 249.5
+      },
+      "trueLoc": {
+        "x": 372.6,
+        "y": 256.8
+      },
+      "error": 49.93645962620896,
+      "t": 1763101829332
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Cinema",
+      "result": "correct",
+      "attempt": 1,
+      "error": 49.93645962620896,
+      "t": 1763101830133
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Station",
+      "attempt": 1,
+      "response": {
+        "x": 476,
+        "y": 579.5
+      },
+      "trueLoc": {
+        "x": 394.20000000000005,
+        "y": 609.6
+      },
+      "error": 87.16220511207821,
+      "t": 1763101833481
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Station",
+      "result": "correct",
+      "attempt": 1,
+      "error": 87.16220511207821,
+      "t": 1763101834283
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Bakery",
+      "attempt": 1,
+      "response": {
+        "x": 354,
+        "y": 441.5
+      },
+      "trueLoc": {
+        "x": 348.3,
+        "y": 470.40000000000003
+      },
+      "error": 29.456747953567476,
+      "t": 1763101837953
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Bakery",
+      "result": "correct",
+      "attempt": 1,
+      "error": 29.456747953567476,
+      "t": 1763101838754
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1763101840311
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Museum",
+      "response": {
+        "x": 854,
+        "y": 558.5
+      },
+      "trueLoc": {
+        "x": 837,
+        "y": 592
+      },
+      "error": 37.566607512523674,
+      "t": 1763101845536
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Library",
+      "response": {
+        "x": 452,
+        "y": 470.5
+      },
+      "trueLoc": {
+        "x": 1061.1000000000001,
+        "y": 524
+      },
+      "error": 611.4450588564766,
+      "t": 1763101849794
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Park",
+      "response": {
+        "x": 906,
+        "y": 296.5
+      },
+      "trueLoc": {
+        "x": 881.5500000000001,
+        "y": 309.6
+      },
+      "error": 27.73828581581777,
+      "t": 1763101854594
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Station",
+      "response": {
+        "x": 484,
+        "y": 594.5
+      },
+      "trueLoc": {
+        "x": 394.20000000000005,
+        "y": 609.6
+      },
+      "error": 91.06069404523554,
+      "t": 1763101857636
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Cinema",
+      "response": {
+        "x": 362,
+        "y": 255.5
+      },
+      "trueLoc": {
+        "x": 372.6,
+        "y": 256.8
+      },
+      "error": 10.679419459877044,
+      "t": 1763101861198
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Bakery",
+      "response": {
+        "x": 360,
+        "y": 440.5
+      },
+      "trueLoc": {
+        "x": 348.3,
+        "y": 470.40000000000003
+      },
+      "error": 32.10763149159405,
+      "t": 1763101866415
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1763101866415
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1763101869473
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Cinema",
+      "attempt": 1,
+      "response": {
+        "x": 415,
+        "y": 251.5
+      },
+      "trueLoc": {
+        "x": 372.6,
+        "y": 256.8
+      },
+      "error": 42.72996606598229,
+      "t": 1763101874715
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Cinema",
+      "result": "correct",
+      "attempt": 1,
+      "error": 42.72996606598229,
+      "t": 1763101875517
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Park",
+      "attempt": 1,
+      "response": {
+        "x": 862,
+        "y": 286.5
+      },
+      "trueLoc": {
+        "x": 881.5500000000001,
+        "y": 309.6
+      },
+      "error": 30.262394155122685,
+      "t": 1763101880173
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 30.262394155122685,
+      "t": 1763101880974
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Library",
+      "attempt": 1,
+      "response": {
+        "x": 1209,
+        "y": 495.5
+      },
+      "trueLoc": {
+        "x": 1061.1000000000001,
+        "y": 524
+      },
+      "error": 150.62091488236274,
+      "t": 1763101884715
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Library",
+      "result": "correct",
+      "attempt": 1,
+      "error": 150.62091488236274,
+      "t": 1763101885517
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Museum",
+      "attempt": 1,
+      "response": {
+        "x": 848,
+        "y": 569.5
+      },
+      "trueLoc": {
+        "x": 837,
+        "y": 592
+      },
+      "error": 25.044959572736385,
+      "t": 1763101890377
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Museum",
+      "result": "correct",
+      "attempt": 1,
+      "error": 25.044959572736385,
+      "t": 1763101891179
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Bakery",
+      "attempt": 1,
+      "response": {
+        "x": 415,
+        "y": 464.5
+      },
+      "trueLoc": {
+        "x": 348.3,
+        "y": 470.40000000000003
+      },
+      "error": 66.96043607982254,
+      "t": 1763101896114
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Bakery",
+      "result": "correct",
+      "attempt": 1,
+      "error": 66.96043607982254,
+      "t": 1763101896916
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "Station",
+      "attempt": 1,
+      "response": {
+        "x": 463,
+        "y": 593.5
+      },
+      "trueLoc": {
+        "x": 394.20000000000005,
+        "y": 609.6
+      },
+      "error": 70.65868665634817,
+      "t": 1763101901123
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "Station",
+      "result": "correct",
+      "attempt": 1,
+      "error": 70.65868665634817,
+      "t": 1763101901925
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1763101903702
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Station",
+      "response": {
+        "x": 457,
+        "y": 563.5
+      },
+      "trueLoc": {
+        "x": 394.20000000000005,
+        "y": 609.6
+      },
+      "error": 77.90410772225042,
+      "t": 1763101908294
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Library",
+      "response": {
+        "x": 1139,
+        "y": 497.5
+      },
+      "trueLoc": {
+        "x": 1061.1000000000001,
+        "y": 524
+      },
+      "error": 82.28402031986514,
+      "t": 1763101911802
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Bakery",
+      "response": {
+        "x": 459,
+        "y": 448.5
+      },
+      "trueLoc": {
+        "x": 348.3,
+        "y": 470.40000000000003
+      },
+      "error": 112.84546955903899,
+      "t": 1763101915586
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Park",
+      "response": {
+        "x": 844,
+        "y": 337.5
+      },
+      "trueLoc": {
+        "x": 881.5500000000001,
+        "y": 309.6
+      },
+      "error": 46.78047135290541,
+      "t": 1763101919372
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Museum",
+      "response": {
+        "x": 831,
+        "y": 583.5
+      },
+      "trueLoc": {
+        "x": 837,
+        "y": 592
+      },
+      "error": 10.404326023342406,
+      "t": 1763101922998
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "Cinema",
+      "response": {
+        "x": 430,
+        "y": 237.5
+      },
+      "trueLoc": {
+        "x": 372.6,
+        "y": 256.8
+      },
+      "error": 60.55782360686353,
+      "t": 1763101930056
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": true,
+      "t": 1763101930056
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "7+3",
+      "answer": 10,
+      "correct": true,
+      "t": 1763101933892
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "11+12",
+      "answer": 23,
+      "correct": true,
+      "t": 1763101936731
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "19+15",
+      "answer": 34,
+      "correct": true,
+      "t": 1763101949926
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "10+5",
+      "answer": 15,
+      "correct": true,
+      "t": 1763101952388
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "18+18",
+      "answer": 36,
+      "correct": true,
+      "t": 1763101959616
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "12+1",
+      "answer": 13,
+      "correct": true,
+      "t": 1763101961712
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "8+4",
+      "answer": 12,
+      "correct": true,
+      "t": 1763101965288
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "1+5",
+      "answer": 6,
+      "correct": true,
+      "t": 1763101968090
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "17+11",
+      "answer": 28,
+      "correct": true,
+      "t": 1763101971774
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "16+14",
+      "answer": 30,
+      "correct": true,
+      "t": 1763101979607
+    },
+    {
+      "phase": "intro_test",
+      "name": "intro_test",
+      "t": 1763101982268
+    },
+    {
+      "phase": "gist_report",
+      "response": {
+        "x": 984,
+        "y": 318.5
+      },
+      "trueCenter": {
+        "x": 649.125,
+        "y": 460.40000000000003
+      },
+      "error": 363.69888042857656,
+      "t": 1763101988703
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "Station",
+      "response": {
+        "x": 480,
+        "y": 588.5
+      },
+      "trueLoc": {
+        "x": 394.20000000000005,
+        "y": 609.6
+      },
+      "error": 88.35638064112854,
+      "t": 1763101999055
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "Cinema",
+      "response": {
+        "x": 418,
+        "y": 254.5
+      },
+      "trueLoc": {
+        "x": 372.6,
+        "y": 256.8
+      },
+      "error": 45.45822257853905,
+      "t": 1763102004731
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "Park",
+      "response": {
+        "x": 872,
+        "y": 226.5
+      },
+      "trueLoc": {
+        "x": 881.5500000000001,
+        "y": 309.6
+      },
+      "error": 83.64695152843291,
+      "t": 1763102010296
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "Museum",
+      "response": {
+        "x": 858,
+        "y": 572.5
+      },
+      "trueLoc": {
+        "x": 837,
+        "y": 592
+      },
+      "error": 28.6574597618142,
+      "t": 1763102016846
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "Library",
+      "response": {
+        "x": 1184,
+        "y": 479.5
+      },
+      "trueLoc": {
+        "x": 1061.1000000000001,
+        "y": 524
+      },
+      "error": 130.7083011900926,
+      "t": 1763102021430
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "Bakery",
+      "response": {
+        "x": 495,
+        "y": 450.5
+      },
+      "trueLoc": {
+        "x": 348.3,
+        "y": 470.40000000000003
+      },
+      "error": 148.0435746663799,
+      "t": 1763102025847
+    },
+    {
+      "phase": "computed_estimated_center",
+      "estimatedCenter": {
+        "x": 717.8333333333334,
+        "y": 428.6666666666667
+      },
+      "t": 1763102025847
+    },
+    {
+      "phase": "bias_results",
+      "gistReported": {
+        "x": 984,
+        "y": 318.5
+      },
+      "estCenter": {
+        "x": 717.8333333333334,
+        "y": 428.6666666666667
+      },
+      "biasPerItem": [
+        {
+          "label": "Station",
+          "error": 88.35638064112854,
+          "bias": 0.9764735484194894
+        },
+        {
+          "label": "Cinema",
+          "error": 45.45822257853905,
+          "bias": 0.9885921020278997
+        },
+        {
+          "label": "Park",
+          "error": 83.64695152843291,
+          "bias": -0.1997217350218331
+        },
+        {
+          "label": "Museum",
+          "error": 28.6574597618142,
+          "bias": 0.9462882291027195
+        },
+        {
+          "label": "Library",
+          "error": 130.7083011900926,
+          "bias": -0.011532023343965095
+        },
+        {
+          "label": "Bakery",
+          "error": 148.0435746663799,
+          "bias": 0.9950317655353638
+        }
+      ],
+      "t": 1763102025847
+    }
+  ],
+  "encoded": [
+    {
+      "name": "Cinema",
+      "x": 372.6,
+      "y": 256.8
+    },
+    {
+      "name": "Museum",
+      "x": 837,
+      "y": 592
+    },
+    {
+      "name": "Station",
+      "x": 394.20000000000005,
+      "y": 609.6
+    },
+    {
+      "name": "Park",
+      "x": 881.5500000000001,
+      "y": 309.6
+    },
+    {
+      "name": "Bakery",
+      "x": 348.3,
+      "y": 470.40000000000003
+    },
+    {
+      "name": "Library",
+      "x": 1061.1000000000001,
+      "y": 524
+    }
+  ],
+  "nameMap": {
+    "Cinema": {
+      "x": 372.6,
+      "y": 256.8
+    },
+    "Museum": {
+      "x": 837,
+      "y": 592
+    },
+    "Station": {
+      "x": 394.20000000000005,
+      "y": 609.6
+    },
+    "Park": {
+      "x": 881.5500000000001,
+      "y": 309.6
+    },
+    "Bakery": {
+      "x": 348.3,
+      "y": 470.40000000000003
+    },
+    "Library": {
+      "x": 1061.1000000000001,
+      "y": 524
+    }
+  },
+  "sessionStart": 1763101771464
+}
