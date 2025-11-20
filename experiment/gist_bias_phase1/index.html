@@ -1,0 +1,775 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Spatial Memory Exp.Phase 1</title>
+  <script src="https://unpkg.com/jspsych@8.2.2"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
+    #canvas { background: #f7f7f7; border-top: 1px solid #ddd; width: 1200px;  height: 640px; position: relative; margin: 0 auto;}
+    #topbar { padding: 12px; background:#fff; border-bottom:1px solid #ddd;}
+    .dot { width:15px; height:15px; border-radius:50%; background:#000; position:absolute; transform:translate(-50%,-50%); }
+    .label { position:absolute; transform:translate(-50%,-150%); background: rgba(255,255,255,0.9); padding:2px 6px; border-radius:4px; border:1px solid #ccc; font-size:12px; }
+    #message { padding:12px; min-height:40px; }
+    button { padding:8px 14px; font-size:14px; margin:6px; }
+    #log { text-align:left; max-width:1000px; margin:12px auto; font-family:monospace; font-size:12px; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <strong>Spatial Memory Experiment</strong>
+    <div id="message">Press <em>Start</em> to begin.</div>
+    <button id="startBtn">Start</button>
+  </div>
+  <div id="canvas"></div>
+  <div id="log"></div>
+
+<script>
+/*
+ Implementation notes:
+ - Training criterion: 80 pixels (paper: criterion chosen to be < 1/2 of shortest inter-item distance; see Methods).
+ - Phases:
+     Phase 1: view each landmark (single dot, participant clicks it to continue)
+     Phase 2: recall with name cue; up to 3 attempts per item; feedback provided; correct shown after 3 incorrect.
+     Phase 3: recall each landmark without feedback; if all within 80 px, proceed; else return to Phase 2.
+ - After passing training: 10 arithmetic problems, then gist test (reported center), then item recall test (no feedback).
+ - Logging: timestamps, clicks, target coords, response coords.
+*/
+
+const jsPsych = initJsPsych({});
+const canvas = document.getElementById('canvas');
+const message = document.getElementById('message');
+const startBtn = document.getElementById('startBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const logDiv = document.getElementById('log');
+
+const TRAIN_CRITERION_PX = 160; // from paper (Experiment 1) is 80 px but it's too hard !
+const ARITH_PROBLEMS = 10;
+
+
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+let participantId = 'P_' + Math.floor(Math.random()*1e6);
+// let participantId = getParameterByName("code")
+let stage = 'idle';
+let data = {participantId, events: [], encoded: [], nameMap: {}, sessionStart: Date.now()};
+
+//set canvas height and width
+const canvas_height = 640; 
+const canvas_width = 1200;
+
+//screen size from original study
+var ori_height = 800;
+var ori_width = 1280;
+
+//get scaling factor
+var scale_width = canvas_width/ori_width;
+var scale_height = canvas_height/ori_height;
+
+
+
+
+// Default encoded coordinates (example cluster). Replace with exact coords if you have them.
+// Coordinates are in pixels relative to the canvas element (left/top). The canvas size is set in CSS.
+const encodedLocations = [
+  {name: 'A', x: 276 * scale_width, y: 321 * scale_height},
+  {name: 'B', x: 620 * scale_width, y: 740 * scale_height},
+  {name: 'C', x: 292 * scale_width, y: 762 * scale_height},
+  {name: 'D', x: 653 * scale_width, y: 387 * scale_height},
+  {name: 'E', x: 258 * scale_width, y: 588 * scale_height},
+  {name: 'F', x: 786 * scale_width, y: 655 * scale_height},
+];
+// Set seed
+jsPsych.randomization.setSeed(participantId);
+// Shuffle names to simulate random mapping between names and locations (paper: mapping randomized)
+const landmarkNames = ['Library','Bakery','Museum','Cinema','Park','Station'];
+//function shuffle(array){ for(let i=array.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [array[i],array[j]]=[array[j],array[i]];} return array; }
+//let namesShuffled = shuffle(landmarkNames.slice());
+let namesShuffled = jsPsych.randomization.repeat(landmarkNames.slice(), 1);
+for(let i=0;i<encodedLocations.length;i++){
+  encodedLocations[i].label = namesShuffled[i];
+  data.encoded.push({name: encodedLocations[i].label, x: encodedLocations[i].x, y: encodedLocations[i].y});
+  data.nameMap[encodedLocations[i].label] = {x: encodedLocations[i].x, y: encodedLocations[i].y};
+}
+
+// utility: clear canvas
+function clearCanvas(){ canvas.innerHTML = ''; }
+
+// utility: create dot (for stimuli display)
+function createDot(x,y,opts={color:'#000', label:null}){
+  const d = document.createElement('div'); d.className = 'dot'; d.style.left = x + 'px'; d.style.top = y + 'px'; d.style.background = opts.color || '#000';
+  canvas.appendChild(d);
+  if(opts.label){
+    const lab = document.createElement('div'); lab.className='label'; lab.style.left = x+'px'; lab.style.top = y+'px'; lab.textContent = opts.label;
+    canvas.appendChild(lab);
+  }
+  return d;
+}
+
+// distance
+function dist(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
+
+// compute center (mean)
+function centerOf(points){
+  const sum = points.reduce((s,p)=>({x:s.x+p.x,y:s.y+p.y}),{x:0,y:0});
+  return {x: sum.x/points.length, y: sum.y/points.length};
+}
+
+// logging
+function logEvent(obj){
+  obj.t = Date.now();
+  data.events.push(obj);
+  //logDiv.textContent = JSON.stringify(data, null, 2);
+}
+
+// save data 
+function SendToServer(par, DataBlob) {
+  var dataToServer = {
+    id: par,
+    experimenter: "Pun",
+    experimentName: "gist_memory/phase1",
+    curData: DataBlob
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "https://bradylab.ucsd.edu/turk/save.php",
+    data: dataToServer,
+    success: function (response) {
+      console.log("✅ Data successfully uploaded:", response);
+      $("#trialNumber").hide();
+
+      // SONA redirect
+      const sonaCode = new URLSearchParams(window.location.search).get("code");
+      if (sonaCode) {
+        const sonaURL =
+          "https://ucsd.sona-systems.com/services/SonaAPI.svc/WebstudyCredit?" +
+          "experiment_id=1825&credit_token=18a6529154ff4c6a97c4a9e8240ec881&survey_code=" +
+          sonaCode;
+        window.location.href = sonaURL;
+      } else {
+        console.warn("⚠️ No SONA code found in URL — skipping redirect.");
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("❌ Failed to upload data:", status, error);
+      alert("Data upload failed — please contact the researcher.");
+    }
+  });
+}
+
+
+// IRB consent
+async function consent_text(){
+  stage='consent';
+  message.textContent = 
+  'Univ. of California, San Diego, Consent to Participate in Research: Click on the text to accept and continue';
+  message.style.fontSize ='24px';
+  clearCanvas();
+  
+  const info = document.createElement('div');
+  info.style.position='absolute';
+  info.style.left='50%';
+  info.style.top='50%';
+  info.style.transform='translate(-50%, -50%)';
+  info.style.fontSize='14px';
+  info.style.textAlign='left';
+  info.style.padding='30px';
+  info.style.backgroundColor='#ffffff';
+  info.style.border='2px solid #333';
+  info.style.borderRadius='10px';
+  info.style.maxWidth='700px';
+  info.style.maxHeight='80vh';
+  info.style.overflowY='auto';
+  info.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';
+  info.style.lineHeight='1.6';
+  
+  info.innerHTML = `
+    <p style="margin-bottom:15px;">
+      Timothy Brady, Ph.D., is conducting a research study to find out more about attention, memory and vision. You have been asked to participate because you are a healthy young adult. There will be approximately 100 participants in this study. The expected duration of the study is 10 years, though your participation will last only between 20-30 minutes.
+    </p>
+    
+    <p style="margin-bottom:15px;">
+      <strong>PROCEDURES.</strong> If you agree to participate in this study, the following will happen to you: 1. You will be shown displays of letters, words, or pictures, right here in your web browser. 2. You will try to perceive and remember these stimuli, and respond by pressing keys or moving and clicking the mouse in a manner that we will describe to you.
+    </p>
+    
+    <p style="margin-bottom:15px;">
+      <strong>RISKS.</strong> You will be required only to continue to interact with your web browser and make responses for a short duration. Thus, no potential risks or discomforts are anticipated except for the possibility that some tasks may be slightly boring. However, there may be risks that are currently unforeseeable.
+    </p>
+    
+    <p style="margin-bottom:15px;">
+      <strong>RIGHTS.</strong> You may call the UCSD Human Research Protection Program at 858-657-5100 to ask about your rights as a research subject or to report research-related problems.
+    </p>
+    
+    <p style="margin-bottom:15px;">
+      <strong>BENEFITS.</strong> There will be no direct benefit to you from these procedures. However, the investigator may learn more about basic questions pertaining to attention, memory and vision. This knowledge may have benefits to society in fields ranging from improving education to visual design, but these benefits will be indirect.
+    </p>
+    
+    <p style="margin-bottom:15px;">
+      <strong>EXPLANATION.</strong> The researcher has explained this study to you and answered your questions. If you have questions about the research or research-related problems, including any adverse events, you may reach Dr. Timothy Brady at timbrady@ucsd.edu or 858-822-4530.
+    </p>
+    
+    <p style="margin-bottom:15px;">
+      <strong>VOLUNTARY NATURE OF PARTICIPATION.</strong> Participation in research is entirely voluntary. You may refuse to participate or withdraw at any time without penalty. The alternative to participation is to choose not to participate.
+    </p>
+    
+    <p style="margin-bottom:15px;">
+      <strong>CONFIDENTIALITY.</strong> Research records will be kept confidential to the extent allowed by law. As with all research, there is also the possibility of loss of confidentiality. Information from participants such as yourself will be identified by a subject number, which is not associated with your identity, by the researchers, to minimize the potential loss of confidentiality.
+    </p>
+    
+    <p style="margin-top:25px; font-weight:bold; text-align:center; color:#2e7d32;">
+      By Clicking HERE to start the experiment, you are indicating that you are at least 18 years old, have read this consent form and agree to participate in this research study. Please print a copy of this page for your records.
+    </p>
+  `;
+  
+  canvas.appendChild(info);
+  
+  await new Promise(resolve=>{
+    canvas.onclick = (ev) => {
+      canvas.onclick = null;
+      logEvent({phase:'consent_text', name:'consent_text'});
+      resolve();
+    };
+  });
+  
+  clearCanvas();
+}
+
+// Intro to the experiment
+async function phase1_text(){
+  stage='phase1';
+  message.textContent = 'Welcome to the experiment !';
+  message.style.fontSize ='24px';
+  clearCanvas();
+  
+  const info = document.createElement('div');
+  info.style.position='absolute';
+  info.style.left='50%';
+  info.style.top='50%';
+  info.style.transform='translate(-50%, -50%)';
+  info.style.fontSize='18px';
+  info.style.textAlign='left';
+  info.style.padding='30px';
+  info.style.backgroundColor='#f5f5f5';
+  info.style.border='2px solid #333';
+  info.style.borderRadius='10px';
+  info.style.maxWidth='600px';
+  info.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';
+  
+  info.innerHTML = `
+    <h3 style="margin-top:0; text-align:center; color:#333;">Training Phase 1</h3>
+    <p style="margin-bottom:20px;">In this phase, you will:</p>
+    <ul style="line-height:1.8; margin-left:20px;">
+      <li>Learn the locations of <strong>6 dots</strong> on the screen</li>
+      <li>Memorize each dot's name (e.g., Hospital, School, Library, etc.)</li>
+      <li>View each dot presented sequentially</li>
+      <li>Take as much time as you need to memorize each location and name</li>
+      <li>Click on the dot's location when ready to proceed to the next trial</li>
+    </ul>
+    <p style="text-align:center; margin-top:30px; font-style:italic; color:#666;">
+      Click anywhere to continue
+    </p>
+  `;
+  
+  canvas.appendChild(info);
+  
+  await new Promise(resolve=>{
+    canvas.onclick = (ev) => {
+      canvas.onclick = null;
+      logEvent({phase:'phase1_text', name:'phase1_text'});
+      resolve();
+    };
+  });
+  
+  clearCanvas();
+}
+
+// Phase 1: exposure (view each landmark one at a time)
+async function phase1_exposure(){
+  stage='phase1';
+  message.textContent = 'Phase 1 — please click the dot to proceed through the landmarks.';
+  message.style.fontSize ='24px';
+  clearCanvas();
+  for(const loc of encodedLocations){
+    createDot(loc.x, loc.y);
+    // show label underneath as instruction (not the landmark name in the paper; paper had the participant click on each landmark)
+    const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='10px'; info.style.transform='translateX(-50%)'; info.style.fontSize='32px';
+    info.style.textAlign='center';
+    info.style.whiteSpace='pre-line';
+    info.textContent = `${loc.label} 
+
+    Click the dot to continue`;
+    canvas.appendChild(info);
+    await new Promise(resolve=>{
+      canvas.onclick = (ev) => { canvas.onclick = null; logEvent({phase:'phase1_viewed', name:loc.label}); resolve(); };
+    });
+    clearCanvas();
+  }
+}
+
+// Intro to phase 2
+async function phase2_text(){
+  stage='phase2';
+  message.textContent = 'Welcome to the training phase 2';
+  clearCanvas();
+  
+  const info = document.createElement('div');
+  info.style.position='absolute';
+  info.style.left='50%';
+  info.style.top='50%';
+  info.style.transform='translate(-50%, -50%)';
+  info.style.fontSize='18px';
+  info.style.textAlign='left';
+  info.style.padding='30px';
+  info.style.backgroundColor='#f5f5f5';
+  info.style.border='2px solid #333';
+  info.style.borderRadius='10px';
+  info.style.maxWidth='600px';
+  info.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';
+  
+  info.innerHTML = `
+    <h3 style="margin-top:0; text-align:center; color:#333;">Training Phase 2</h3>
+    <p style="margin-bottom:20px;">In this phase, you will:</p>
+    <ul style="line-height:1.8; margin-left:20px;">
+      <li>Be asked to <strong>recall the location</strong> of each dot</li>
+      <li>See a <strong>cue</strong> displayed on the screen for each trial</li>
+      <li>Have <strong>3 attempts</strong> to recall the correct location</li>
+      <li>Receive feedback after your 3rd attempt</li>
+      <li>If you recall accurately on your <strong>1st or 2nd attempt</strong>, 
+          you'll see feedback immediately and proceed to the next trial</li>
+    </ul>
+    <p style="text-align:center; margin-top:30px; font-style:italic; color:#666;">
+      Click anywhere to continue
+    </p>
+  `;
+  
+  canvas.appendChild(info);
+  
+  await new Promise(resolve=>{
+    canvas.onclick = (ev) => {
+      canvas.onclick = null;
+      logEvent({phase:'phase2_text', name:'phase2_text'});
+      resolve();
+    };
+  });
+  
+  clearCanvas();
+}
+// Phase 2: recall with feedback, 3 attempts
+async function phase2_recall_with_feedback(){
+  stage='phase2';
+  message.textContent = 'Phase 2 — recall each landmark when cued (3 attempts each). Click on the map to indicate location.';
+  message.style.fontSize ='24px';
+  const items = jsPsych.randomization.repeat(encodedLocations.slice(), 1);
+  // For each item: up to 3 attempts
+  for(const item of items){
+    let attempts = 0;
+    let correct = false;
+    while(attempts < 3 && !correct){
+      attempts++;
+      clearCanvas();
+      const cue = document.createElement('div'); cue.style.position='absolute'; cue.style.left='50%'; cue.style.top='10px'; cue.style.transform='translateX(-50%)'; cue.style.fontSize='32px';
+      cue.style.textAlign='center';
+      cue.style.whiteSpace='pre-line';
+      cue.textContent = `Locate: ${item.label} 
+
+      attempt ${attempts} of 3`;
+      canvas.appendChild(cue);
+      const response = await new Promise(resolve=>{
+        function clickHandler(ev){
+          // get click relative to canvas
+          const rect = canvas.getBoundingClientRect();
+          const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+          canvas.removeEventListener('click', clickHandler);
+          resolve({x,y});
+        }
+        canvas.addEventListener('click', clickHandler);
+      });
+      const error = dist(response, {x:item.x,y:item.y});
+      logEvent({phase:'phase2_attempt', cue:item.label, attempt:attempts, response, trueLoc:{x:item.x,y:item.y}, error});
+      // feedback:
+      clearCanvas();
+      createDot(item.x, item.y, {color:'#0a0'}); // true location
+      createDot(response.x, response.y, {color:'#a00'}); // response
+      const fb = document.createElement('div'); fb.style.position='absolute'; fb.style.left='50%'; fb.style.top='10px'; fb.style.transform='translateX(-50%)'; fb.style.fontSize='32px';
+      fb.textContent = `Your error: ${Math.round(error)} px.`;
+      canvas.appendChild(fb);
+      await new Promise(r=>setTimeout(r, 800)); // short pause so participant sees feedback
+      if(error <= TRAIN_CRITERION_PX){
+        correct = true;
+        // mark as learned in this round
+        logEvent({phase:'phase2_feedback', cue:item.label, result:'correct', attempt:attempts, error});
+      } else {
+        if(attempts === 3){
+          // show correct location explicitly (as Methods says)
+          logEvent({phase:'phase2_feedback', cue:item.label, result:'failed_three', error});
+          clearCanvas();
+          createDot(item.x, item.y, {color:'#0a0'});
+          const msg = document.createElement('div'); msg.style.position='absolute'; msg.style.left='50%'; msg.style.top='10px'; msg.style.transform='translateX(-50%)';
+          msg.textContent = `Correct location shown.`;
+          canvas.appendChild(msg);
+          await new Promise(r=>setTimeout(r, 800));
+        } else {
+          logEvent({phase:'phase2_feedback', cue:item.label, result:'incorrect_try_again', attempt:attempts, error});
+        }
+      }
+    } // attempts loop
+  } // items loop
+}
+
+// Intro to phase 3
+async function phase3_text(){
+  stage='phase3';
+  message.textContent = 'Welcome to the training phase 3';
+  clearCanvas();
+  
+  const info = document.createElement('div');
+  info.style.position='absolute';
+  info.style.left='50%';
+  info.style.top='50%';
+  info.style.transform='translate(-50%, -50%)';
+  info.style.fontSize='18px';
+  info.style.textAlign='left';
+  info.style.padding='30px';
+  info.style.backgroundColor='#f5f5f5';
+  info.style.border='2px solid #333';
+  info.style.borderRadius='10px';
+  info.style.maxWidth='600px';
+  info.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';
+  
+  info.innerHTML = `
+    <h3 style="margin-top:0; text-align:center; color:#333;">Training Phase 3</h3>
+    <p style="margin-bottom:20px;">In this phase:</p>
+    <ul style="line-height:1.8; margin-left:20px;">
+      <li>You'll be asked to recall the location of each dot</li>
+      <li>A <strong>cue</strong> will appear on screen (e.g., "Locate the school")</li>
+      <li>You have <strong>1 attempt only</strong> to recall the position</li>
+      <li><strong>No feedback</strong> will be shown after your response</li>
+    </ul>
+    
+    <p style="margin-top:25px; margin-bottom:15px; font-weight:bold; color:#333;">
+      After completing all trials:
+    </p>
+    <ul style="line-height:1.8; margin-left:20px;">
+      <li><strong style="color:#2e7d32;">✓ Pass:</strong> If all your recall errors are 
+          <strong>below 80 pixels</strong>, you'll proceed to the testing phase</li>
+      <li><strong style="color:#c62828;">✗ Retry:</strong> If any error exceeds the threshold, 
+          you'll return to Phase 2 for additional training</li>
+    </ul>
+    
+    <p style="text-align:center; margin-top:30px; font-style:italic; color:#666;">
+      Click anywhere to continue
+    </p>
+  `;
+  
+  canvas.appendChild(info);
+  
+  await new Promise(resolve=>{
+    canvas.onclick = (ev) => {
+      canvas.onclick = null;
+      logEvent({phase:'phase3_text', name:'phase3_text'});
+      resolve();
+    };
+  });
+  
+  clearCanvas();
+}
+
+// Phase 3: recall without feedback. If all retrieved within 80 px, proceed; else return to phase2.
+async function phase3_check(){
+  stage='phase3';
+  message.textContent = 'Phase 3 — recall each landmark (no feedback). Try to be accurate.';
+  message.style.fontSize = '24px';
+  const items = jsPsych.randomization.repeat(encodedLocations.slice(),1);
+  const responses = [];
+  for(const item of items){
+    clearCanvas();
+    const cue = document.createElement('div'); cue.style.position='absolute'; cue.style.left='50%'; cue.style.top='10px'; cue.style.transform='translateX(-50%)'; cue.style.fontSize='32px';
+    cue.textContent = `Locate: ${item.label}`;
+    canvas.appendChild(cue);
+    const response = await new Promise(resolve=>{
+      function clickHandler(ev){
+        const rect = canvas.getBoundingClientRect();
+        const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+        canvas.removeEventListener('click', clickHandler);
+        resolve({x,y});
+      }
+      canvas.addEventListener('click', clickHandler);
+    });
+    const error = dist(response, {x:item.x,y:item.y});
+    logEvent({phase:'phase3_response', cue:item.label, response, trueLoc:{x:item.x,y:item.y}, error});
+    responses.push({label:item.label, error, response, trueLoc:{x:item.x,y:item.y}});
+  }
+  // check criterion
+  const allGood = responses.every(r => r.error <= TRAIN_CRITERION_PX);
+  logEvent({phase:'phase3_check', allGood});
+  clearCanvas();
+  if(allGood){
+    message.textContent = 'Training criterion passed. Proceeding to filler tasks.';
+    message.style.fontSize='32px';
+    await new Promise(r=>setTimeout(r, 800));
+    return true;
+  } else {
+    message.textContent = 'Not all items were within criterion. Returning to Phase 2 for more training.';
+    message.style.fontSize='32px';
+    await new Promise(r=>setTimeout(r, 1200));
+    return false;
+  }
+}
+
+// simple arithmetic filler problems (self-paced)
+async function arithmeticFiller(){
+  stage='filler';
+  message.textContent = 'Before going to the test, Please solve a few quick arithmetic problems.';
+  message.style.fontSize ='24px'
+  for(let i=0;i<ARITH_PROBLEMS;i++){
+    clearCanvas();
+    const a = Math.floor(Math.random()*20)+1;
+    const b = Math.floor(Math.random()*20)+1;
+    const promptDiv = document.createElement('div'); promptDiv.style.position='absolute'; promptDiv.style.left='50%'; promptDiv.style.top='20%'; promptDiv.style.transform='translateX(-50%)'; promptDiv.style.fontSize='24px';
+    promptDiv.textContent = `Problem ${i+1}: ${a} + ${b} = ? (type answer then press Enter)`;
+    canvas.appendChild(promptDiv);
+    const input = document.createElement('input'); input.type='number'; input.style.position='absolute'; input.style.left='50%'; input.style.top='30%'; input.style.transform='translateX(-50%)'; input.style.fontSize='24px';
+    canvas.appendChild(input);
+    input.focus();
+    await new Promise(resolve=>{
+      input.addEventListener('keydown', function handler(e){
+        if(e.key === 'Enter'){
+          const ans = Number(input.value);
+          logEvent({phase:'filler_answer', problem:`${a}+${b}`, answer:ans, correct: ans === a+b});
+          input.removeEventListener('keydown', handler);
+          resolve();
+        }
+      });
+    });
+  }
+}
+
+// Intro to testing
+async function test_text(){
+  stage='intro_test';
+  message.textContent = 'Welcome to the testing phase 3';
+  clearCanvas();
+  
+  const info = document.createElement('div');
+  info.style.position='absolute';
+  info.style.left='50%';
+  info.style.top='50%';
+  info.style.transform='translate(-50%, -50%)';
+  info.style.fontSize='18px';
+  info.style.textAlign='left';
+  info.style.padding='30px';
+  info.style.backgroundColor='#f5f5f5';
+  info.style.border='2px solid #333';
+  info.style.borderRadius='10px';
+  info.style.maxWidth='600px';
+  info.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';
+  
+  info.innerHTML = `
+    <h3 style="margin-top:0; text-align:center; color:#333;">Testing Phase 3</h3>
+    <p style="margin-bottom:10px; text-align:center; color:#2e7d32; font-weight:bold;">
+      🎉 Congratulations! You've passed the training phase!
+    </p>
+    <p style="margin-bottom:20px;">The testing phase consists of:</p>
+    <ul style="line-height:1.8; margin-left:20px;">
+      <li><strong>Gist Test:</strong> Report the center of all landmarks
+          <ul style="margin-top:8px; margin-left:20px;">
+            <li>Think of it as finding the <strong>average location</strong> of all dots</li>
+          </ul>
+      </li>
+      <li><strong>Recall Test:</strong> Recall the location of each individual landmark 
+          you've learned so far</li>
+    </ul>
+    <p style="text-align:center; margin-top:30px; font-weight:bold; color:#333;">
+      You're almost done! 🎯
+    </p>
+    <p style="text-align:center; margin-top:15px; font-style:italic; color:#666;">
+      Click anywhere to continue
+    </p>
+  `;
+  
+  canvas.appendChild(info);
+  
+  await new Promise(resolve=>{
+    canvas.onclick = (ev) => {
+      canvas.onclick = null;
+      logEvent({phase:'intro_test', name:'intro_test'});
+      resolve();
+    };
+  });
+  
+  clearCanvas();
+}
+
+// Gist test — ask participant to click the center (reported center)
+async function gistTest(){
+  stage='gist';
+  message.textContent = 'Gist test — indicate the center (average location) of the landmarks you have seen by clicking on the map.';
+  message.style.fontSize = '24px'
+  clearCanvas();
+  const cue = document.createElement('div'); cue.style.position='absolute'; cue.style.left='50%'; cue.style.top='10px'; cue.style.transform='translateX(-50%)'; cue.style.fontSize='32px';
+  cue.textContent = `Locate the average location of all landmarks`;
+  // show blank map, wait for click
+  const response = await new Promise(resolve=>{
+    function clickHandler(ev){
+      const rect = canvas.getBoundingClientRect();
+      const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+      canvas.removeEventListener('click', clickHandler);
+      resolve({x,y});
+    }
+    canvas.addEventListener('click', clickHandler);
+  });
+  // compute true center of encoded items (the 'actual' center)
+  const trueCenter = centerOf(encodedLocations.map(l => ({x:l.x,y:l.y})));
+  const error = dist(response, trueCenter);
+  logEvent({phase:'gist_report', response, trueCenter, error});
+  // show reported center and true center for short feedback
+  //clearCanvas();
+  //createDot(response.x, response.y, {color:'#00f'});
+  //createDot(trueCenter.x, trueCenter.y, {color:'#0a0'});
+  //const info = document.createElement('div'); info.style.position='absolute'; info.style.left='50%'; info.style.top='10px'; info.style.transform='translateX(-50%)'; info.style.fontSize = '32px'
+  //info.textContent = `Your reported center error (to true center): ${Math.round(error)} px`;
+  //canvas.appendChild(info);
+  await new Promise(r=>setTimeout(r, 900));
+  return {reportedCenter: response, trueCenter, error};
+}
+
+// Item memory test — recall each item (no feedback)
+async function itemTest(){
+  stage='itemtest';
+  message.textContent = 'Item memory test — recall each landmark. No feedback.';
+  message.style.fontSize = '24px'
+  const items = jsPsych.randomization.repeat(encodedLocations.slice(),1);
+  const results = [];
+  for(const item of items){
+    clearCanvas();
+    const cue = document.createElement('div'); cue.style.position='absolute'; cue.style.left='50%'; cue.style.top='10px'; cue.style.transform='translateX(-50%)'; cue.style.fontSize='32px';
+    cue.textContent = `Locate: ${item.label}`;
+    canvas.appendChild(cue);
+    const response = await new Promise(resolve=>{
+      function clickHandler(ev){
+        const rect = canvas.getBoundingClientRect();
+        const x = ev.clientX - rect.left; const y = ev.clientY - rect.top;
+        canvas.removeEventListener('click', clickHandler);
+        resolve({x,y});
+      }
+      canvas.addEventListener('click', clickHandler);
+    });
+    const error = dist(response, {x:item.x,y:item.y});
+    logEvent({phase:'itemtest_response', cue:item.label, response, trueLoc:{x:item.x,y:item.y}, error});
+    results.push({label:item.label, response, trueLoc:{x:item.x,y:item.y}, error});
+  }
+  return results;
+}
+
+// compute estimated center (mean of retrieved item locations)
+function computeEstimatedCenter(itemResults){
+  const pts = itemResults.map(r => r.response);
+  return centerOf(pts);
+}
+
+// compute bias for each retrieved item toward reported center
+// bias = (projection length toward reported center) / (distance from retrieved to reported center + distance from retrieved to true location?)
+// We'll follow the paper's conceptual description: bias magnitude = (component of displacement of retrieved location toward center) / total retrieval error.
+// For each item: compute vector from retrieved -> true, retrieved -> reported center, measure whether retrieved is closer to center than true? 
+// Implement a straightforward directional bias metric: sign and proportion of movement of true->retrieved projected on true->reported_center vector.
+// Let true = T, retrieved = R, reported center = C.
+// Vector TR = R - T (retrieval error relative to true)
+// Vector TC = C - T (direction from true to reported center)
+// Project TR onto TC: proj = (TR · TC)/|TC|
+// Normalize by |TR| to get proportion toward (+) or away (-) from center.
+// That yields a bias proportion in [-1,1] (paper used a normalized bias measure; this is a principled measure you can adjust).
+function computeBiasPerItem(trueLoc, retrieved, reportedCenter){
+  const TR = {x: retrieved.x - trueLoc.x, y: retrieved.y - trueLoc.y};
+  const TC = {x: reportedCenter.x - trueLoc.x, y: reportedCenter.y - trueLoc.y};
+  const dot = TR.x*TC.x + TR.y*TC.y;
+  const magTC = Math.hypot(TC.x, TC.y);
+  const magTR = Math.hypot(TR.x, TR.y);
+  if(magTR < 1e-6 || magTC < 1e-6) return 0;
+  const proj = dot / magTC; // scalar projection along TC
+  // positive proj means retrieved is displaced in the direction of reported center relative to true location
+  return proj / magTR; // normalized by retrieval error
+}
+
+// main orchestration
+async function runExperiment(){
+  startBtn.disabled = true;
+  logEvent({event:'experiment_started'});
+  //Consent form
+  await consent_text();
+  // Intro tex
+  await phase1_text();
+  // Phase 1
+  await phase1_exposure();
+  // Phases 2+3 loop until criterion
+  let passed = false;
+  let attemptsRound = 0;
+  while(!passed && attemptsRound < 10){
+    attemptsRound++;
+    await phase2_text();
+    await phase2_recall_with_feedback();
+    await phase3_text();
+    passed = await phase3_check();
+  }
+  if(!passed) {
+    message.textContent = 'Could not reach criterion after several cycles. Proceeding anyway for demo purposes.';
+    logEvent({event:'failed_to_reach_criterion'});
+    await new Promise(r=>setTimeout(r,900));
+  }
+  // filler
+  await arithmeticFiller();
+  // Test text
+  await test_text();
+  // gist test
+  const gist = await gistTest();
+  // item test
+  const items = await itemTest();
+  // compute estimated center
+  const estCenter = computeEstimatedCenter(items);
+  logEvent({phase:'computed_estimated_center', estimatedCenter: estCenter});
+  // compute bias per item relative to reported center
+  const biasPerItem = items.map(it => {
+    const b = computeBiasPerItem(it.trueLoc, it.response, gist.reportedCenter);
+    return {label: it.label, error: it.error, bias: b};
+  });
+  logEvent({phase:'bias_results', gistReported: gist.reportedCenter, estCenter, biasPerItem});
+  clearCanvas();
+  message.textContent = 'Experiment complete. Thank you! You can close the browser now';
+  message.style.fontSize = '24px'
+  // downloadBtn.style.display = 'inline-block';
+  //logDiv.textContent = JSON.stringify(data, null, 2);
+  const DataBlob = JSON.stringify(data, null, 2)
+  SendToServer(participantId,DataBlob)
+}
+
+
+
+
+
+
+/* download results JSON
+downloadBtn.onclick = () => {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download = participantId + '_exp1_data.json'; a.click();
+}; */
+
+
+startBtn.onclick = () => {
+  runExperiment().catch(e=>{ console.error(e); message.textContent = 'Error: ' + e.message; });
+};
+
+</script>
+</body>
+</html>
