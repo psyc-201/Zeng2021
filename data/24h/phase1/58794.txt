@@ -1,0 +1,2971 @@
+{
+  "participantId": "58794",
+  "events": [
+    {
+      "event": "experiment_started",
+      "t": 1764187606599
+    },
+    {
+      "phase": "consent_text",
+      "name": "consent_text",
+      "t": 1764187627848
+    },
+    {
+      "phase": "phase1_text",
+      "name": "phase1_text",
+      "t": 1764187636498
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "park",
+      "t": 1764187638748
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "shopping mall",
+      "t": 1764187640548
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "restaurant",
+      "t": 1764187644598
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "coffee shop",
+      "t": 1764187647815
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "hospital",
+      "t": 1764187652281
+    },
+    {
+      "phase": "phase1_viewed",
+      "name": "university",
+      "t": 1764187661731
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187663415
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 260,
+        "y": 496.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 31.7761801511761,
+      "t": 1764187665980
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 1,
+      "error": 31.7761801511761,
+      "t": 1764187666782
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 260,
+        "y": 563.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 48.10688620145771,
+      "t": 1764187668414
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 1,
+      "error": 48.10688620145771,
+      "t": 1764187669216
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 587,
+        "y": 288.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 32.857573803462735,
+      "t": 1764187670831
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 1,
+      "error": 32.857573803462735,
+      "t": 1764187671633
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 745,
+        "y": 560.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 37.39339012445916,
+      "t": 1764187672898
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 1,
+      "error": 37.39339012445916,
+      "t": 1764187673700
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 513,
+        "y": 564.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 73.58201206816786,
+      "t": 1764187675497
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 1,
+      "error": 73.58201206816786,
+      "t": 1764187676299
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 268,
+        "y": 209.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 48.19598012282768,
+      "t": 1764187677964
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 48.19598012282768,
+      "t": 1764187678766
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764187694531
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 241,
+        "y": 177.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 81.26224523110348,
+      "t": 1764187704747
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 715,
+        "y": 485.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 44.28053325107998,
+      "t": 1764187706563
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 283,
+        "y": 502.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 107.49870929457713,
+      "t": 1764187708564
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 614,
+        "y": 202.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 390.8744203705328,
+      "t": 1764187710464
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 613,
+        "y": 202.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 107.10308191760873,
+      "t": 1764187713797
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 287,
+        "y": 457.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 46.93267118969472,
+      "t": 1764187715580
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764187715580
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187718830
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 640,
+        "y": 226.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 370.19158891039115,
+      "t": 1764187725247
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 370.19158891039115,
+      "t": 1764187726048
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 2,
+      "response": {
+        "x": 573,
+        "y": 536.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 56.109825342804264,
+      "t": 1764187728447
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 2,
+      "error": 56.109825342804264,
+      "t": 1764187729248
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 748,
+        "y": 510.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 17.493302289733634,
+      "t": 1764187732913
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 1,
+      "error": 17.493302289733634,
+      "t": 1764187733715
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 278,
+        "y": 212.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 48.30168216532424,
+      "t": 1764187735430
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 48.30168216532424,
+      "t": 1764187736231
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 251,
+        "y": 480.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 13.611598914161382,
+      "t": 1764187737646
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 1,
+      "error": 13.611598914161382,
+      "t": 1764187738448
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 245,
+        "y": 531.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 83.22362945702383,
+      "t": 1764187739680
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 83.22362945702383,
+      "t": 1764187740481
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 2,
+      "response": {
+        "x": 288,
+        "y": 601.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 16.391232412481994,
+      "t": 1764187741479
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 2,
+      "error": 16.391232412481994,
+      "t": 1764187742282
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 673,
+        "y": 237.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 94.3216314333568,
+      "t": 1764187743629
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 94.3216314333568,
+      "t": 1764187744431
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 2,
+      "response": {
+        "x": 638,
+        "y": 284.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 36.00409915898468,
+      "t": 1764187745313
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 2,
+      "error": 36.00409915898468,
+      "t": 1764187746115
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764187748296
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 278,
+        "y": 503.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 48.996179698013165,
+      "t": 1764187750730
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 257,
+        "y": 557.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 54.72634192050481,
+      "t": 1764187752980
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 634,
+        "y": 195.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 399.9935155724403,
+      "t": 1764187754495
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 624,
+        "y": 505.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 196.25581559854473,
+      "t": 1764187761729
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 270,
+        "y": 205.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 52.51906796583505,
+      "t": 1764187763229
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 750,
+        "y": 569.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 47.35520694707183,
+      "t": 1764187764763
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764187764763
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187767363
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 292,
+        "y": 524.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 87.03489242826699,
+      "t": 1764187769346
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 87.03489242826699,
+      "t": 1764187770148
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 2,
+      "response": {
+        "x": 258,
+        "y": 609.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 15.750317457118127,
+      "t": 1764187770862
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 2,
+      "error": 15.750317457118127,
+      "t": 1764187771664
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 259,
+        "y": 496.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 31.216592142641037,
+      "t": 1764187773446
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 1,
+      "error": 31.216592142641037,
+      "t": 1764187774248
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 651,
+        "y": 211.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 105.49891068750428,
+      "t": 1764187775746
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 105.49891068750428,
+      "t": 1764187776548
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 2,
+      "response": {
+        "x": 608,
+        "y": 325.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 16.442176140949208,
+      "t": 1764187777646
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 2,
+      "error": 16.442176140949208,
+      "t": 1764187778447
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 700,
+        "y": 543.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 41.7134945191601,
+      "t": 1764187780812
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 1,
+      "error": 41.7134945191601,
+      "t": 1764187781614
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 702,
+        "y": 201.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 408.7429663003389,
+      "t": 1764187784412
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 408.7429663003389,
+      "t": 1764187785214
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 2,
+      "response": {
+        "x": 584,
+        "y": 590.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 3.132491021535417,
+      "t": 1764187785945
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 2,
+      "error": 3.132491021535417,
+      "t": 1764187786747
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 271,
+        "y": 175.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 82.21771402806091,
+      "t": 1764187788129
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 82.21771402806091,
+      "t": 1764187788930
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 2,
+      "response": {
+        "x": 252,
+        "y": 251.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 8.582103471760297,
+      "t": 1764187789462
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 2,
+      "error": 8.582103471760297,
+      "t": 1764187790264
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764187793462
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 268,
+        "y": 607.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 6.121478579559034,
+      "t": 1764187796945
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 242,
+        "y": 207.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 52.06776834088437,
+      "t": 1764187801895
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 587,
+        "y": 549.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 241.21861486263862,
+      "t": 1764187803945
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 241,
+        "y": 486.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 16.12375964221741,
+      "t": 1764187805812
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 776,
+        "y": 539.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 42.08343646852048,
+      "t": 1764187807895
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 716,
+        "y": 185.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 428.2520431941919,
+      "t": 1764187810295
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764187810295
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187819078
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 241,
+        "y": 500.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 496.43153165869717,
+      "t": 1764187823962
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 496.43153165869717,
+      "t": 1764187824763
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 2,
+      "response": {
+        "x": 753,
+        "y": 523.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 16.132750075545086,
+      "t": 1764187825695
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 2,
+      "error": 16.132750075545086,
+      "t": 1764187826497
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 235,
+        "y": 483.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 14.79444574832052,
+      "t": 1764187833028
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 1,
+      "error": 14.79444574832052,
+      "t": 1764187833830
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 578,
+        "y": 404.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 100.87018963127805,
+      "t": 1764187837012
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 100.87018963127805,
+      "t": 1764187837813
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 2,
+      "response": {
+        "x": 611,
+        "y": 307.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 2.41250000000002,
+      "t": 1764187838528
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 2,
+      "error": 2.41250000000002,
+      "t": 1764187839330
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 807,
+        "y": 160.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 486.9859469224959,
+      "t": 1764187841111
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 486.9859469224959,
+      "t": 1764187841913
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 2,
+      "response": {
+        "x": 590,
+        "y": 568.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 25.076134072061425,
+      "t": 1764187842594
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 2,
+      "error": 25.076134072061425,
+      "t": 1764187843396
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 219,
+        "y": 176.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 89.59995814731167,
+      "t": 1764187847628
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 89.59995814731167,
+      "t": 1764187848429
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 2,
+      "response": {
+        "x": 262,
+        "y": 255.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 3.5003571246374316,
+      "t": 1764187848961
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 2,
+      "error": 3.5003571246374316,
+      "t": 1764187849763
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 236,
+        "y": 547.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 72.67374009915825,
+      "t": 1764187851545
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 1,
+      "error": 72.67374009915825,
+      "t": 1764187852346
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764187853044
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 231,
+        "y": 578.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 52.86560791289552,
+      "t": 1764187854461
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 217,
+        "y": 197.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 72.52277228567591,
+      "t": 1764187857044
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 763,
+        "y": 543.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 526.2270190944209,
+      "t": 1764187862678
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 598,
+        "y": 241.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 350.90000356226847,
+      "t": 1764187864528
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 611,
+        "y": 560.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 250.90281018005754,
+      "t": 1764187866078
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 820,
+        "y": 546.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 86.11629128684072,
+      "t": 1764187868277
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764187868277
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187869994
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 256,
+        "y": 574.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 39.33284251106194,
+      "t": 1764187871494
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 1,
+      "error": 39.33284251106194,
+      "t": 1764187872296
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 579,
+        "y": 562.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 29.585680658048073,
+      "t": 1764187874194
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 1,
+      "error": 29.585680658048073,
+      "t": 1764187874996
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 591,
+        "y": 302.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 22.345472835677484,
+      "t": 1764187876527
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 1,
+      "error": 22.345472835677484,
+      "t": 1764187877328
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 798,
+        "y": 534.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 62.020283980323725,
+      "t": 1764187878711
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 1,
+      "error": 62.020283980323725,
+      "t": 1764187879513
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 232,
+        "y": 223.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 42.71361024310636,
+      "t": 1764187881144
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 42.71361024310636,
+      "t": 1764187881946
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 279,
+        "y": 568.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 104.8898261272274,
+      "t": 1764187883711
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 104.8898261272274,
+      "t": 1764187884513
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 2,
+      "response": {
+        "x": 228,
+        "y": 504.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 36.81474738470981,
+      "t": 1764187885294
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 2,
+      "error": 36.81474738470981,
+      "t": 1764187886096
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764187886794
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 280,
+        "y": 586.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 23.93057667504068,
+      "t": 1764187887993
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 232,
+        "y": 178.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 82.74329277953593,
+      "t": 1764187889944
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 572,
+        "y": 533.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 227.47801026967417,
+      "t": 1764187895828
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 216,
+        "y": 515.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 51.99543850185319,
+      "t": 1764187900761
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 610,
+        "y": 272.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 320.7909171095715,
+      "t": 1764187902443
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 821,
+        "y": 535.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 84.9073944070833,
+      "t": 1764187903827
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764187903827
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187905627
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 219,
+        "y": 207.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 63.32892309205961,
+      "t": 1764187907027
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 63.32892309205961,
+      "t": 1764187907829
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 258,
+        "y": 523.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 55.4943747149204,
+      "t": 1764187909444
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 1,
+      "error": 55.4943747149204,
+      "t": 1764187910245
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 765,
+        "y": 512.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 30.385286324140502,
+      "t": 1764187911644
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 1,
+      "error": 30.385286324140502,
+      "t": 1764187912445
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 584,
+        "y": 510.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 202.86780216744594,
+      "t": 1764187913777
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 202.86780216744594,
+      "t": 1764187914579
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 2,
+      "response": {
+        "x": 609,
+        "y": 292.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 17.394543864384623,
+      "t": 1764187915043
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 2,
+      "error": 17.394543864384623,
+      "t": 1764187915845
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 266,
+        "y": 585.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 25.31545970350926,
+      "t": 1764187917676
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 1,
+      "error": 25.31545970350926,
+      "t": 1764187918478
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 604,
+        "y": 529.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 66.51174708275224,
+      "t": 1764187920043
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 1,
+      "error": 66.51174708275224,
+      "t": 1764187920845
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764187921360
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 596,
+        "y": 254.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 57.42860921396235,
+      "t": 1764187923593
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 234,
+        "y": 584.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 47.0114081899277,
+      "t": 1764187925177
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 778,
+        "y": 568.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 60.59303280906147,
+      "t": 1764187928360
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 185,
+        "y": 472.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 56.91375602611375,
+      "t": 1764187930627
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 185,
+        "y": 212.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 86.03227592014522,
+      "t": 1764187932293
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 585,
+        "y": 546.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 45.654271432145315,
+      "t": 1764187936560
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764187936560
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187938526
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 581,
+        "y": 524.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 217.1512610054337,
+      "t": 1764187939693
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 217.1512610054337,
+      "t": 1764187940495
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 2,
+      "response": {
+        "x": 608,
+        "y": 333.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 24.264071304090727,
+      "t": 1764187941093
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 2,
+      "error": 24.264071304090727,
+      "t": 1764187941895
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 250,
+        "y": 608.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 23.775460037610213,
+      "t": 1764187943376
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 1,
+      "error": 23.775460037610213,
+      "t": 1764187944178
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 617,
+        "y": 552.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 53.27581533866938,
+      "t": 1764187945843
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 1,
+      "error": 53.27581533866938,
+      "t": 1764187946645
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 818,
+        "y": 549.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 581.5297289262174,
+      "t": 1764187948609
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 581.5297289262174,
+      "t": 1764187949411
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 2,
+      "response": {
+        "x": 240,
+        "y": 474.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 4.508394947206791,
+      "t": 1764187950126
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 2,
+      "error": 4.508394947206791,
+      "t": 1764187950928
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 832,
+        "y": 537.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 96.07817455072717,
+      "t": 1764187952143
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 96.07817455072717,
+      "t": 1764187952945
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 2,
+      "response": {
+        "x": 786,
+        "y": 538.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 51.220265764636565,
+      "t": 1764187953426
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 2,
+      "error": 51.220265764636565,
+      "t": 1764187954228
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 188,
+        "y": 227.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 76.57710166884092,
+      "t": 1764187956810
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 76.57710166884092,
+      "t": 1764187957611
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764187958342
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 798,
+        "y": 526.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 61.1761033819579,
+      "t": 1764187966409
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 603,
+        "y": 511.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 83.38652469074364,
+      "t": 1764187970544
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 603,
+        "y": 222.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 87.58321846250001,
+      "t": 1764187972459
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 241,
+        "y": 501.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 31.1123066486559,
+      "t": 1764187973943
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 262,
+        "y": 606.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 12.152057438968932,
+      "t": 1764187974793
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 214,
+        "y": 204.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 68.83206011736101,
+      "t": 1764187975993
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764187975993
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764187977943
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 613,
+        "y": 490.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 180.90182463493835,
+      "t": 1764187986909
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 180.90182463493835,
+      "t": 1764187987711
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 2,
+      "response": {
+        "x": 608,
+        "y": 325.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 16.442176140949208,
+      "t": 1764187988359
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 2,
+      "error": 16.442176140949208,
+      "t": 1764187989160
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 217,
+        "y": 530.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 65.0444127116234,
+      "t": 1764187991009
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 1,
+      "error": 65.0444127116234,
+      "t": 1764187991811
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 762,
+        "y": 513.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 27.230784509448124,
+      "t": 1764187993842
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 1,
+      "error": 27.230784509448124,
+      "t": 1764187994644
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 206,
+        "y": 207.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 72.2014715916511,
+      "t": 1764187996509
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 1,
+      "error": 72.2014715916511,
+      "t": 1764187997310
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 589,
+        "y": 333.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 258.6161489543915,
+      "t": 1764188000842
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 258.6161489543915,
+      "t": 1764188001644
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 2,
+      "response": {
+        "x": 579,
+        "y": 580.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 11.718041645257966,
+      "t": 1764188002159
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 2,
+      "error": 11.718041645257966,
+      "t": 1764188002960
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 235,
+        "y": 590.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 43.20153353759564,
+      "t": 1764188004125
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 1,
+      "error": 43.20153353759564,
+      "t": 1764188004927
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764188005725
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 586,
+        "y": 543.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 235.36141390688917,
+      "t": 1764188010175
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 772,
+        "y": 547.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 42.261278080531355,
+      "t": 1764188012259
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 230,
+        "y": 511.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 42.78113632198188,
+      "t": 1764188015325
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 234,
+        "y": 613.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 39.94086253450219,
+      "t": 1764188016892
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 606,
+        "y": 257.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 335.4143892262227,
+      "t": 1764188019109
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 158,
+        "y": 147.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 148.65077362731753,
+      "t": 1764188021909
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": false,
+      "t": 1764188021909
+    },
+    {
+      "phase": "phase2_text",
+      "name": "phase2_text",
+      "t": 1764188023358
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 1,
+      "response": {
+        "x": 559,
+        "y": 488.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 186.63901027451362,
+      "t": 1764188037191
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 186.63901027451362,
+      "t": 1764188037992
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "coffee shop",
+      "attempt": 2,
+      "response": {
+        "x": 612,
+        "y": 311.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 1.9092292292964492,
+      "t": 1764188038925
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "coffee shop",
+      "result": "correct",
+      "attempt": 2,
+      "error": 1.9092292292964492,
+      "t": 1764188039726
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 1,
+      "response": {
+        "x": 211,
+        "y": 167.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 101.26476435562374,
+      "t": 1764188041975
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 101.26476435562374,
+      "t": 1764188042776
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "park",
+      "attempt": 2,
+      "response": {
+        "x": 267,
+        "y": 237.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 20.989342533771765,
+      "t": 1764188043541
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "park",
+      "result": "correct",
+      "attempt": 2,
+      "error": 20.989342533771765,
+      "t": 1764188044343
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "restaurant",
+      "attempt": 1,
+      "response": {
+        "x": 269,
+        "y": 603.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 7.731267683892486,
+      "t": 1764188046008
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "restaurant",
+      "result": "correct",
+      "attempt": 1,
+      "error": 7.731267683892486,
+      "t": 1764188046810
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 1,
+      "response": {
+        "x": 845,
+        "y": 558.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 113.49566346341167,
+      "t": 1764188050441
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 113.49566346341167,
+      "t": 1764188051243
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "university",
+      "attempt": 2,
+      "response": {
+        "x": 741,
+        "y": 528.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 6.10455772353739,
+      "t": 1764188052274
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "university",
+      "result": "correct",
+      "attempt": 2,
+      "error": 6.10455772353739,
+      "t": 1764188053075
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 1,
+      "response": {
+        "x": 590,
+        "y": 274.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 317.6205479813924,
+      "t": 1764188054658
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "incorrect_try_again",
+      "attempt": 1,
+      "error": 317.6205479813924,
+      "t": 1764188055459
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "shopping mall",
+      "attempt": 2,
+      "response": {
+        "x": 577,
+        "y": 576.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 16.07210316044543,
+      "t": 1764188056191
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "shopping mall",
+      "result": "correct",
+      "attempt": 2,
+      "error": 16.07210316044543,
+      "t": 1764188056993
+    },
+    {
+      "phase": "phase2_attempt",
+      "cue": "hospital",
+      "attempt": 1,
+      "response": {
+        "x": 235,
+        "y": 483.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 14.79444574832052,
+      "t": 1764188058524
+    },
+    {
+      "phase": "phase2_feedback",
+      "cue": "hospital",
+      "result": "correct",
+      "attempt": 1,
+      "error": 14.79444574832052,
+      "t": 1764188059325
+    },
+    {
+      "phase": "phase3_text",
+      "name": "phase3_text",
+      "t": 1764188063925
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "hospital",
+      "response": {
+        "x": 262,
+        "y": 459.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 22.887237163974174,
+      "t": 1764188076824
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "park",
+      "response": {
+        "x": 259,
+        "y": 230.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 26.301188186087725,
+      "t": 1764188089873
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 609,
+        "y": 278.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 31.262919829248215,
+      "t": 1764188099807
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "university",
+      "response": {
+        "x": 758,
+        "y": 454.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 72.63962847509616,
+      "t": 1764188109090
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 266,
+        "y": 580.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 30.11432383434835,
+      "t": 1764188118140
+    },
+    {
+      "phase": "phase3_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 578,
+        "y": 517.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 74.57085556703773,
+      "t": 1764188125040
+    },
+    {
+      "phase": "phase3_check",
+      "allGood": true,
+      "t": 1764188125040
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "15+16",
+      "answer": 31,
+      "correct": true,
+      "t": 1764188131566
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "11+17",
+      "answer": 28,
+      "correct": true,
+      "t": 1764188139408
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "11+4",
+      "answer": 15,
+      "correct": true,
+      "t": 1764188141640
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "3+10",
+      "answer": 13,
+      "correct": true,
+      "t": 1764188143811
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "2+16",
+      "answer": 18,
+      "correct": true,
+      "t": 1764188146275
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "7+3",
+      "answer": 10,
+      "correct": true,
+      "t": 1764188148304
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "9+8",
+      "answer": 17,
+      "correct": true,
+      "t": 1764188150578
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "18+5",
+      "answer": 23,
+      "correct": true,
+      "t": 1764188152276
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "19+2",
+      "answer": 21,
+      "correct": true,
+      "t": 1764188154642
+    },
+    {
+      "phase": "filler_answer",
+      "problem": "7+20",
+      "answer": 27,
+      "correct": true,
+      "t": 1764188156683
+    },
+    {
+      "phase": "intro_test",
+      "name": "intro_test",
+      "t": 1764188163673
+    },
+    {
+      "phase": "gist_report",
+      "response": {
+        "x": 520,
+        "y": 314.5
+      },
+      "trueCenter": {
+        "x": 450.78125,
+        "y": 460.40000000000003
+      },
+      "error": 161.48698198790674,
+      "t": 1764188175790
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 300,
+        "y": 209.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 400.96018817333976,
+      "t": 1764188181023
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 602,
+        "y": 510.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 84.1000148632567,
+      "t": 1764188185006
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 603,
+        "y": 237.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 72.68301146932482,
+      "t": 1764188186489
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "park",
+      "response": {
+        "x": 307,
+        "y": 218.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 61.60318579424282,
+      "t": 1764188189939
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "university",
+      "response": {
+        "x": 825,
+        "y": 513.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 88.74832744902858,
+      "t": 1764188192323
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "hospital",
+      "response": {
+        "x": 253,
+        "y": 466.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 11.788792346970926,
+      "t": 1764188194089
+    },
+    {
+      "phase": "computed_estimated_center",
+      "estimatedCenter": {
+        "x": 481.6666666666667,
+        "y": 359.3333333333333
+      },
+      "t": 1764188194089
+    },
+    {
+      "phase": "bias_results",
+      "gistReported": {
+        "x": 520,
+        "y": 314.5
+      },
+      "estCenter": {
+        "x": 481.6666666666667,
+        "y": 359.3333333333333
+      },
+      "biasPerItem": [
+        {
+          "label": "restaurant",
+          "error": 400.96018817333976,
+          "bias": 0.8080924101829506
+        },
+        {
+          "label": "shopping mall",
+          "error": 84.1000148632567,
+          "bias": 0.8931289594876816
+        },
+        {
+          "label": "coffee shop",
+          "error": 72.68301146932482,
+          "bias": 0.07357500521124012
+        },
+        {
+          "label": "park",
+          "error": 61.60318579424282,
+          "bias": 0.6307245042762228
+        },
+        {
+          "label": "university",
+          "error": 88.74832744902858,
+          "bias": -0.631978537038133
+        },
+        {
+          "label": "hospital",
+          "error": 11.788792346970926,
+          "bias": 0.9849479719995858
+        }
+      ],
+      "t": 1764188194089
+    }
+  ],
+  "encoded": [
+    {
+      "name": "park",
+      "x": 258.75,
+      "y": 256.8
+    },
+    {
+      "name": "shopping mall",
+      "x": 581.25,
+      "y": 592
+    },
+    {
+      "name": "restaurant",
+      "x": 273.75,
+      "y": 609.6
+    },
+    {
+      "name": "coffee shop",
+      "x": 612.1875,
+      "y": 309.6
+    },
+    {
+      "name": "hospital",
+      "x": 241.875,
+      "y": 470.40000000000003
+    },
+    {
+      "name": "university",
+      "x": 736.875,
+      "y": 524
+    }
+  ],
+  "nameMap": {
+    "park": {
+      "x": 258.75,
+      "y": 256.8
+    },
+    "shopping mall": {
+      "x": 581.25,
+      "y": 592
+    },
+    "restaurant": {
+      "x": 273.75,
+      "y": 609.6
+    },
+    "coffee shop": {
+      "x": 612.1875,
+      "y": 309.6
+    },
+    "hospital": {
+      "x": 241.875,
+      "y": 470.40000000000003
+    },
+    "university": {
+      "x": 736.875,
+      "y": 524
+    }
+  },
+  "sessionStart": 1764187605383
+}

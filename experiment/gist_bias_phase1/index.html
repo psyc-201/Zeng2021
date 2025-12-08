@@ -154,8 +154,7 @@ function SendToServer(par, DataBlob) {
       const sonaCode = new URLSearchParams(window.location.search).get("code");
       if (sonaCode) {
         const sonaURL =
-          "https://ucsd.sona-systems.com/services/SonaAPI.svc/WebstudyCredit?" +
-          "experiment_id=1825&credit_token=18a6529154ff4c6a97c4a9e8240ec881&survey_code=" +
+          "https://ucsd.sona-systems.com/webstudy_credit.aspx?experiment_id=2988&credit_token=82c253ee9f474effbdf70574a8e90bc2&survey_code=" +
           sonaCode;
         window.location.href = sonaURL;
       } else {
@@ -715,7 +714,7 @@ async function runExperiment(){
   // Phases 2+3 loop until criterion
   let passed = false;
   let attemptsRound = 0;
-  while(!passed && attemptsRound < 10){
+  while(!passed && attemptsRound < 20){
     attemptsRound++;
     await phase2_text();
     await phase2_recall_with_feedback();

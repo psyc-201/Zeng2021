@@ -12,10 +12,14 @@ format:
 
 ## Introduction
 
-The reason I chose this paper to replicate is that I want to investiage the connection between the rate of representational drift in hippocampus and  the transition from detailed episodic memory to more abstract gist-like memory. In this paper, they studied how the spatial memory of locations became more attracted to the gist or an average of all location over time. Here I would  use this as an behavioral experiment and combine it with neuroimaging technique such as fMRI to track how neural representation of spatial memories correlate with gist-like transformation of the memory. The behavioral result we expect to see the increasing of gist-based bias of individual item memories as times go by. For the future plan, I would like to explore this bias to related to a direction of drift of memory representation in the brain. 
+
 
 Link to the paper : https://github.com/CP-PP8/Zeng2021/blob/main/original_paper/elife-65588-v3.pdf
 Link to the repository : https://github.com/CP-PP8/Zeng2021/tree/main
+Link to the pre-regsitration : https://osf.io/a4nk5
+Link to the experiment :
+Session 1 : https://github.com/psyc-201/Zeng2021/blob/main/experiment/gist_bias_phase1/index.html
+Session 2 :https://github.com/psyc-201/Zeng2021/blob/main/experiment/gist_bias_phase2/index.html
 
 
 
@@ -23,7 +27,6 @@ Link to the repository : https://github.com/CP-PP8/Zeng2021/tree/main
 
 ## Methods 
 
-The stimuli used in this study will be black dot presented on the screen. Each dot is corresponded to a name of different places such as hospital, school. The dot will be presented sequentially and location of each of them will be different on the screen. So participants need to remember the match between the dot location and the place it represents e.g. A hospital is a dot located on the upper right. The training phase will let participants to learn an association between the location and name of the place. They will have to learn a set of 6 dots-location pairings in total. The first phase of training is an exposure to dot-location pair. Participants will learn the association and proceed to next item by clicking on the screen. Each pair will be presented sequentially. There is no time-limit in this phase. Next, they will proceed to the second phase training, here they have to recall the location of dot cued by name of the place (university ?). After they respond, they will receive a feedback. If the response error is less than 80 pixel from true location, they will receive a feedback telling the correct location of that dot and proceed to the next dot. If they made a bigger error than 80 pixels, then they will have 2 more attempts to answer the correct answer. The location of the dot will be shown at feedback if they make 3 incorrect attempts. Lastly, they proceed to phase 3 of the training phase. In this phase, They have to recall each landmark consecutively and must have a smaller error than 80 pixels for all items to progress to the test phase. If not, they will go back to session 2 for more training. After the finish training phase 3. They will have to perform unrelated arithmetric problem to reduce an effect of longering memories before going into the test phase. Then they will have to return for another testing sessions and each participant will be  allocated to different duration between test session 1 and 2 : at 1 day, 1 week and 1 month after the training phase. For each test trial, participants will be showned a dot of on screen and the name of a place. Then they will need to answer the location and the name are correctly matched. There will be one extra trial that asks participants to report an average location of all dots they learned during the training phase. Here, I plan to replicate experiment 1 in this study
 
 
 
@@ -33,14 +36,17 @@ They do not report any effect size in the paper. On average, they have around 40
 
 ### Planned Sample
 
-90-100 subjects from UCSD psychology undergraduate students and separate them into 3 different groups
+120-130 subjects from UCSD psychology undergraduate students and separate them into 3 different groups
 Exclusion criteria
 => bad performance compared to group average : lower than 3 SD below average in any testing sessions (in either individual or gist memory trials)
-=> bads performance compared on gist trial : if the gist response is located outside the boundary of learned landmarks
+=> bads performance on gist trial : if the gist response is located outside the boundary of learned landmarks
 => drop out of second session
 
 ### Materials 
-The experiment will be built as exactly as described in Zeng et al. using JSPsych 
+The experiment will be built as described in Zeng et al. using JSPsych. Here, there are slight modification as we are planning to collect experimental data online. The screensize of the task will be fixed to 1200 * 640 pixels for all participants 
+
+The stimuli used in this study will be black dot presented on the screen. Each dot is corresponded to a name of different places such as hospital, school. The dot will be presented sequentially and location of each of them will be different on the screen. So participants need to remember the match between the dot location and the place it represents e.g. A hospital is a dot located on the upper right. The training phase will let participants to learn an association between the location and name of the place. They will have to learn a set of 6 dots-location pairings in total. The first phase of training is an exposure to dot-location pair. Participants will learn the association and proceed to next item by clicking on the screen. Each pair will be presented sequentially. There is no time-limit in this phase. Next, they will proceed to the second phase training, here they have to recall the location of dot cued by name of the place (university ?). After they respond, they will receive a feedback. If the response error is less than 80 pixel from true location, they will receive a feedback telling the correct location of that dot and proceed to the next dot. If they made a bigger error than 80 pixels, then they will have 2 more attempts to answer the correct answer. The location of the dot will be shown at feedback if they make 3 incorrect attempts. Lastly, they proceed to phase 3 of the training phase. In this phase, They have to recall each landmark consecutively and must have a smaller error than 80 pixels for all items to progress to the test phase. If not, they will go back to session 2 for more training. After the finish training phase 3. They will have to perform unrelated arithmetric problem to reduce an effect of longering memories before going into the test phase. Then they will have to return for another testing sessions and each participant will be  allocated to different duration between test session 1 and 2 : at 1 day, 1 week and 1 month after the training phase. For each test trial, participants will be showned a dot of on screen and the name of a place. Then they will need to answer the location and the name are correctly matched. There will be one extra trial that asks participants to report an average location of all dots they learned during the training phase. Here, I plan to replicate experiment 1 in this study
+
 
 
 ### Procedure 
@@ -77,18 +83,19 @@ Normally, the measurement of memory bias can be vary. Some studies use a proport
 
 ### Differences from Original Study
 
-Instead of collecting data onsite like in original paper, we collect data online via SONA system. In doing so, we make the change so that the screen size remains the same across all computers by setting canvas size as 1200 * 640 pixels (1280 * 800 pixels in original paper). We also increase error threshold from 80 to 160 pixels in training phase 3 due to feedback during pilot. 
+Instead of collecting data onsite like in original paper, we collect data online via SONA system. In doing so, we make the change so that the screen size remains the same across all computers by setting canvas size as 1200 * 640 pixels (1280 * 800 pixels in original paper). From the feedback of pilot study, we also added feedback for every responses during phase 2 of training.
 
 ### Methods Addendum (Post Data Collection)
 
 
-
 #### Actual Sample
-  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+In the end, we collected 52 participants who completed both session 1 and 2 (36 participants dropped out and did not participate in session 2).  After using exclusion criteria as mentioned in the original study, only 36 participantss were included in the final analysis.
+  
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
-
+  
+Here, due to time constraint, we only collected data from 24 hour group instead of 1 week or 1 month group.
 
 ## Results
 
@@ -98,23 +105,286 @@ Instead of collecting data onsite like in original paper, we collect data online
 Data preparation following the analysis plan.
 	
 
+```python
+# Import python libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+import pingouin as pg
 
+# Import dataframe 
+data_path = '/Zeng2021/analysis/all_sub_data.csv'
+all_sub_df = pd.read_csv(datapath)
+
+# Get data as numpy array
+## Item memory errors for session 1 and 2
+all_error_ind_s1 = all_sub_df['avg_ind_error_session_1'].to_numpy()
+all_error_ind_s2 = all_sub_df['avg_ind_error_session_2'].to_numpy()
+## Gist memory errors for session 1 and 2
+all_error_gist_s1 = all_sub_df['gist_error_session_1'].to_numpy()
+all_error_gist_s2 = all_sub_df['gist_error_session_2'].to_numpy()
+## Gist response conditions for session 1 and 2 (is the response lie within the boundary)
+all_good_gist_s1 = all_sub_df['good_gist_loc_session_1'].to_numpy()
+all_good_gist_s2 = all_sub_df['good_gist_loc_session_2'].to_numpy()
+
+# Exclude data
+## exclusion criteria 1 : bad item memory performance compared to group
+### session 1 check
+all_avg_error_ind_s1 = np.median(all_error_ind_s1)
+all_std_error_ind_s1 = np.std(all_error_ind_s1)
+low_error_ind_s1 = all_avg_error_ind_s1+ (3 * all_std_error_ind_s1)
+### session 2 check
+all_avg_error_ind_s2 = np.median(all_error_ind_s2)
+all_std_error_ind_s2 = np.std(all_error_ind_s2)
+low_error_ind_s2 = all_avg_error_ind_s2 + (3 * all_std_error_ind_s2)
+## exclusion criteria 2 : bad item memory performance compared to group
+### session 1 check
+all_avg_error_gist_s1 = np.median(all_error_gist_s1)
+all_std_error_gist_s1 = np.std(all_error_gist_s1)
+low_error_gist_s1 = all_avg_error_gist_s1 + (3 * all_std_error_gist_s1)
+### session 2 check
+all_avg_error_gist_s2 = np.median(all_error_gist_s2)
+all_std_error_gist_s2 = np.std(all_error_gist_s2)
+low_error_gist_s2 = all_avg_error_gist_s2 + (3 * all_std_error_gist_s2)
+## combine 1 and 2
+good_avg_perf_s1 = np.logical_and(all_error_ind_s1 <= low_error_ind_s1, all_error_gist_s1 <= low_error_gist_s1)
+good_avg_perf_s2 = np.logical_and(all_error_ind_s2  <= low_error_ind_s2, all_error_gist_s2 <= low_error_gist_s2)
+good_avg_perf_all = np.logical_and(good_avg_perf_s1,good_avg_perf_s2)
+## combine with good gist response
+good_gist_both = np.logical_and(all_good_gist_s1,all_good_gist_s2)
+good_sub_all = np.logical_and(good_avg_perf_all,good_gist_both)
+## get clean subjects
+ID_good_sub = all_sub_df['ID_sub'].to_numpy()[good_sub_all]
+## get clean dataframe
+clean_sub_df = all_sub_df[all_sub_df['ID_sub'].isin(ID_good_sub)]
+
+
+# prepare for stat tests for memory error
+error_df = clean_sub_df[['ID_sub','avg_ind_error_session_1','avg_ind_error_session_2','gist_error_session_1','gist_error_session_2']]
+# copy dataframe
+error_cop = error_df.copy()
+## melt dataframe before doing stat tests
+error_melt = pd.melt(error_cop,id_vars='ID_sub',value_vars=['avg_ind_error_session_1','avg_ind_error_session_2','gist_error_session_1','gist_error_session_2'])
+## create 2 factor conditons (sessions x memory types)
+session_cond = []
+mem_cond = []
+### mem cond - 0 : ind, 1 : gist
+### session cond - 1 : 0, 2 : 1
+for i in range(len(error_melt['ID_sub'])):
+    if error_melt['variable'][i] == 'avg_ind_error_session_1':
+        session_cond.append(0)
+        mem_cond.append(0)
+    elif error_melt['variable'][i] == 'avg_ind_error_session_2':
+        session_cond.append(1)
+        mem_cond.append(0)
+    elif error_melt['variable'][i] == 'avg_gist_error_session_1':
+        session_cond.append(0)
+        mem_cond.append(1) 
+    else: 
+        session_cond.append(1)
+        mem_cond.append(1)
+error_melt['session_cond'] = session_cond
+error_melt['mem_cond'] = mem_cond
+
+# 2 x 2 anova for memory error
+aov_error = pg.rm_anova(data=error_melt, dv='value',subject ='ID_sub', within=['session_cond','mem_cond'], correction=False, effsize="np2")
+## print result for ANOVA
+print(' 2 x 2 ANOVA for memory errors (sessions vs memory types)')
+pg.print_table(aov_error)
+
+# post hoc paired t-test for memory error
+## get difference of memory error between session 2 and 1 for both item and gist memories
+diff_err_ind = error_df['avg_ind_error_session_2'].to_numpy() - error_df['avg_ind_error_session_1'].to_numpy()
+diff_err_gist = error_df['avg_ind_error_session_2'].to_numpy() - error_df['avg_gist_error_session_1'].to_numpy()
+t_stats, p_val = stats.ttest_rel(diff_err_ind,diff_err_gist)
+## get degree of freedom
+t_df = np.sum(good_sub_all)-1
+## effect size : Cohen's D
+cohen_d_err = np.mean(diff_err_ind-diff_err_gist)/np.std(diff_err_ind-diff_err_gist)
+## print result
+print(f'post-hoc t-test for memory error differences (item vs gist) : t({t_df}) = {t_stats}, p = {p_val}, Cohens D = {cohen_d_err}')
+
+
+# prepare for stat tests for memory bias
+bias_df = clean_sub_df[['ID_sub','obs_bias_session_1','obs_bias_session_2','sim_bias_session_1','sim_bias_session_2']]
+# copy dataframe
+bias_cop = bias_df.copy()
+## melt dataframe before doing stat tests
+bias_melt = pd.melt(bias_cop,id_vars='ID_sub',value_vars=['obs_bias_session_1','obs_bias_session_2','sim_bias_session_1','sim_bias_session_2'])
+## create 2 factor conditons (sessions x memory types)
+session_cond = []
+bias_cond = []
+### bias cond - 0 : observed, 1 : simulated
+### session cond - 1 : 0, 2 : 1
+for i in range(len(bias_melt['ID_sub'])):
+    if bias_melt['variable'][i] == 'obs_bias_session_1':
+        session_cond.append(0)
+        bias_cond.append(0)
+    elif bias_melt['variable'][i] == 'obs_bias_session_2':
+        session_cond.append(1)
+        bias_cond.append(0)
+    elif bias_melt['variable'][i] == 'sim_bias_session_1':
+        session_cond.append(0)
+        bias_cond.append(1) 
+    else: 
+        session_cond.append(1)
+        bias_cond.append(1)
+bias_melt['session_cond'] = session_cond
+bias_melt['bias_cond'] = bias_cond
+
+# 2 x 2 anova for memory bias
+aov_bias = pg.rm_anova(data=bias_melt, dv='value',subject ='ID_sub', within=['session_cond','bias_cond'], correction=False, effsize="np2")
+## print result for ANOVA
+print(' 2 x 2 ANOVA for memory biases (sessions vs memory types)')
+pg.print_table(aov_bias)
+
+# post hoc paired t-test for memory biases
+## compare memory bias between session 1 and 2 
+t_stats_ses, p_val_ses = stats.ttest_rel(bias_df['obs_bias_session_2'].to_numpy(),bias_df['obs_bias_session_1'].to_numpy())
+## get degree of freedom
+t_df_ses = np.sum(good_sub_all)-1
+## effect size : Cohen's D
+diff_bias_ses = bias_df['obs_bias_session_2'].to_numpy()-bias_df['obs_bias_session_1'].to_numpy()
+cohen_d_bias_ses = np.mean(diff_bias_ses)/np.std(diff_bias_ses)
+## print result
+print(f'post-hoc t-test for memory biases difference over time (phase 1 vs phase 2) : t({t_df_ses}) = {t_stats_ses}, p = {p_val_ses}, Cohens D = {cohen_d_bias_ses}')
+## compare memory bias between observed and simulated at session 1 
+t_stats_sim1, p_val_sim1 = stats.ttest_rel(bias_df['obs_bias_session_1'].to_numpy(),bias_df['sim_bias_session_1'].to_numpy())
+## get degree of freedom
+t_df_sim1 = np.sum(good_sub_all)-1
+## effect size : Cohen's D
+diff_bias_sim1 = bias_df['obs_bias_session_1'].to_numpy()-bias_df['sim_bias_session_1'].to_numpy()
+cohen_d_bias_sim1 = np.mean(diff_bias_sim1)/np.std(diff_bias_sim1)
+## print result
+print(f'post-hoc t-test for memory biases difference at session 1 (observed vs simulated) : t({t_df_sim1}) = {t_stats_sim1}, p = {p_val_sim1}, Cohens D = {cohen_d_bias_sim1}')
+## compare memory bias between observed and simulated at session 2 
+t_stats_sim2, p_val_sim2 = stats.ttest_rel(bias_df['obs_bias_session_2'].to_numpy(),bias_df['sim_bias_session_2'].to_numpy())
+## get degree of freedom
+t_df_sim2 = np.sum(good_sub_all)-1
+## effect size : Cohen's D
+diff_bias_sim2 = bias_df['obs_bias_session_2'].to_numpy()-bias_df['sim_bias_session_2'].to_numpy()
+cohen_d_bias_sim2 = np.mean(diff_bias_sim2)/np.std(diff_bias_sim2)
+## print result
+print(f'post-hoc t-test for memory biases difference at session 2 (observed vs simulated) : t({t_df_sim2}) = {t_stats_sim2}, p = {p_val_sim2}, Cohens D = {cohen_d_bias_sim2}')
+
+# function for plotting errors
+def plot_bar_and_scatter(data1,data2,title,labels,ylabel,color=(0, 0.4, 0, 1),bar_width=0.4,capsize=12,ylim=350):
+    x = np.arange(0,len(labels))
+    #get mean across conditions (within subjects)
+    mean_data = (data1 + data2) / 2
+    #demean both data
+    demean_data1 = data1 - mean_data
+    demean_data2 = data2 - mean_data
+    #get mean
+    mean_data = [np.mean(data1), np.mean(data2)]
+    #get std error
+    std_error_data = [np.std(demean_data1), np.std(demean_data2)]
+    #set up plot
+    fig, ax = plt.subplots()
+    colors = [color, color] 
+    #plot bar
+    ax.bar(x,
+       height=mean_data,
+       yerr=std_error_data,    # error bars
+       capsize=12, # error bar cap width in points
+       width=bar_width,    # bar width
+       tick_label=labels,
+       color=(0,0,0,0),  # face color transparent
+       edgecolor=colors
+       )
+
+    #plot scatter
+    ax.scatter(x[0] + np.random.random(data1.size) * bar_width - bar_width / 2, data1, color=colors[0],alpha=0.5)   
+    ax.scatter(x[1] + np.random.random(data2.size) * bar_width - bar_width / 2, data2, color=colors[1],alpha=0.5)  
+
+    plt.title(title)
+    plt.ylabel(ylabel)
+    plt.ylim(0,ylim)
+    plt.show()
+
+#plot data for item errors
+data1 = all_error_ind_s1[good_sub_all]
+data2 = all_error_ind_s2[good_sub_all]
+title = 'item error for both sessions (24 hr delay)'
+labels = ['session 1', 'session 2']
+ylabel = 'error (pixels)'
+plot_bar_and_scatter(data1,data2,title,labels,ylabel)
+
+#plot data for gist errors
+data1 = all_error_gist_s1[good_sub_all]
+data2 = all_error_gist_s2[good_sub_all]
+title = 'gist error for both sessions (24 hr delay)'
+labels = ['session 1', 'session 2']
+ylabel = 'error (pixels)'
+color = (0.4, 0, 0.8, 1)
+plot_bar_and_scatter(data1,data2,title,labels,ylabel,color)
+
+#get bias data and exclude poor performers
+all_obs_bias_s1 = all_sub_df['obs_bias_session_1'].to_numpy()[good_sub_all]
+all_obs_bias_s2 = all_sub_df['obs_bias_session_2'].to_numpy()[good_sub_all]
+all_sim_bias_s1 = all_sub_df['sim_bias_session_1'].to_numpy()[good_sub_all]
+all_sim_bias_s2 = all_sub_df['sim_bias_session_2'].to_numpy()[good_sub_all]
+
+# get mean and std error for observed bias (both sessions)
+avg_obs_bias_both = (all_obs_bias_s1  + all_obs_bias_s2 )/2
+demean_obs_bias_s1 = all_obs_bias_s1  - avg_obs_bias_both
+demean_obs_bias_s2 = all_obs_bias_s2   - avg_obs_bias_both
+mean_obs_bias_both_sess = [np.mean(all_obs_bias_s1), np.mean(all_obs_bias_s2)]
+std_obs_bias_both_sess = [np.std(demean_obs_bias_s1), np.std(demean_obs_bias_s2)]
+
+# get mean and std error for simulated bias (both sessions)
+avg_sim_bias_both = (all_sim_bias_s1  + all_sim_bias_s2 )/2
+demean_sim_bias_s1 = all_sim_bias_s1  - avg_sim_bias_both
+demean_sim_bias_s2 = all_sim_bias_s2   - avg_sim_bias_both
+mean_sim_bias_both_sess = [np.mean(all_sim_bias_s1), np.mean(all_sim_bias_s2)]
+std_sim_bias_both_sess = [np.std(demean_sim_bias_s1), np.std(demean_sim_bias_s2)]
+
+# plot data for memory bias
+bar_w = 0.2
+x_int = np.arange(len(labels))
+plt.bar(x_int+bar_w, mean_obs_bias_both_sess, yerr=std_obs_bias_both_sess, width=bar_w, label='observed bias', color='red')
+plt.bar(x_int-bar_w, mean_sim_bias_both_sess, yerr=std_sim_bias_both_sess,  width=bar_w, label='simulated bias', color='gray')
+plt.xticks(x_int,labels)
+plt.axhline(0,linestyle='--',color='black')
+plt.ylim(-0.5,0.5)
+plt.title('memory bias across session')
+plt.legend()
+plt.show()
+    
+```
 ### Confirmatory analysis
 
-The analyses as specified in the analysis plan.  
+First, we examined whether item memories have more increase in error over time compared to gist memories. Here we used 2 x 2 ANOVA to see whether the interaction between memory types (item vs gist) and sessions (1 vs 2) is significant. 
+2 x 2 ANOVA found the significant interaction between these two factors : F(1,34) = 21.918, p < 0.001 suggesting that item and gist memories error change differently over time. Then, to confirm that gist memory remains more stable over time while item memories become more noisy, we used post-hoc paired t-test to compared the difference of memory from session 1 to 2 between gist and item memories. We found the significant difference between them : T(34) = 4.68, p < 0.001 and Cohen's d 0.8. In summary, we could replicate the difference between gist and item memory over time.
 
-*Side-by-side graph with original graph is ideal here*
+#### Zeng et al., 2021 Graph (memory error)
+
+
+#### Replication Graph (memory error)
+
+Crucially, we want to replicate whether the memory bias of each item becomes more attract toward the gist over time. In a similar manner to previous analysis, we used 2 x 2 ANOVA to see whether the interaction between bias types (observed vs simulated) and sessions (1 vs 2)
+
+#### Zeng et al., 2021 Graph (memory bias)
+
+#### Replication Graph (memory bias)
 
 ### Exploratory analyses
 
-Any follow-up analyses desired (not required).  
+Contrary to previous studies on gist memory, here we found that gist memory is worse than item memory in session 1. Here, we suspect that participants might misunderstood the instruction and tried to response closer to the screen center. Instead of calculating gist memory error using gist location, we used screen center as the target. We found that calculating gist memory error based on screen center results in lower gist memory error. 
+
+#### Gist memory error based on screen center
+
+As we found earlier that participants might misunderstood the instruction or did something differently from simply reporting the gist. There is another way to evaluate gist memory by combining all reported location of each item and generating reported gist location. Here, we found that the reported gist generated by this method is very close to the true gist. Suggesting that participants still have an accurate representation of gist memory.
+
+#### Gist memory error based on reported gist
 
 ## Discussion
 
 ### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
 
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+

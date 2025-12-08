@@ -1,0 +1,227 @@
+{
+  "participantId": "59435",
+  "events": [
+    {
+      "event": "experiment_started",
+      "t": 1764719959694
+    },
+    {
+      "phase": "consent_text",
+      "name": "consent_text",
+      "t": 1764719963622
+    },
+    {
+      "phase": "intro_test",
+      "name": "intro_test",
+      "t": 1764719970130
+    },
+    {
+      "phase": "gist_report",
+      "response": {
+        "x": 538,
+        "y": 262.5
+      },
+      "trueCenter": {
+        "x": 450.78125,
+        "y": 460.40000000000003
+      },
+      "error": 216.26724289998825,
+      "t": 1764719974269
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "university",
+      "response": {
+        "x": 598,
+        "y": 254.5
+      },
+      "trueLoc": {
+        "x": 736.875,
+        "y": 524
+      },
+      "error": 303.177366610702,
+      "t": 1764719980366
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "shopping mall",
+      "response": {
+        "x": 635,
+        "y": 536.5
+      },
+      "trueLoc": {
+        "x": 273.75,
+        "y": 609.6
+      },
+      "error": 368.57180101033236,
+      "t": 1764719986512
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "park",
+      "response": {
+        "x": 590,
+        "y": 242.5
+      },
+      "trueLoc": {
+        "x": 612.1875,
+        "y": 309.6
+      },
+      "error": 70.67315725400984,
+      "t": 1764719988108
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "hospital",
+      "response": {
+        "x": 198,
+        "y": 154.5
+      },
+      "trueLoc": {
+        "x": 258.75,
+        "y": 256.8
+      },
+      "error": 118.97836988293292,
+      "t": 1764719990175
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "coffee shop",
+      "response": {
+        "x": 871,
+        "y": 561.5
+      },
+      "trueLoc": {
+        "x": 241.875,
+        "y": 470.40000000000003
+      },
+      "error": 635.6866174657132,
+      "t": 1764719992103
+    },
+    {
+      "phase": "itemtest_response",
+      "cue": "restaurant",
+      "response": {
+        "x": 359,
+        "y": 550.5
+      },
+      "trueLoc": {
+        "x": 581.25,
+        "y": 592
+      },
+      "error": 226.09138086180994,
+      "t": 1764719993875
+    },
+    {
+      "phase": "computed_estimated_center",
+      "estimatedCenter": {
+        "x": 541.8333333333334,
+        "y": 383.3333333333333
+      },
+      "t": 1764719993875
+    },
+    {
+      "phase": "bias_results",
+      "gistReported": {
+        "x": 538,
+        "y": 262.5
+      },
+      "estCenter": {
+        "x": 541.8333333333334,
+        "y": 383.3333333333333
+      },
+      "biasPerItem": [
+        {
+          "label": "university",
+          "error": 303.177366610702,
+          "bias": 0.9848342596263048
+        },
+        {
+          "label": "shopping mall",
+          "error": 368.57180101033236,
+          "bias": 0.7515153104607157
+        },
+        {
+          "label": "park",
+          "error": 70.67315725400984,
+          "bias": 0.7739254195222423
+        },
+        {
+          "label": "hospital",
+          "error": 118.97836988293292,
+          "bias": -0.5280375126737041
+        },
+        {
+          "label": "coffee shop",
+          "error": 635.6866174657132,
+          "bias": 0.7276424633399317
+        },
+        {
+          "label": "restaurant",
+          "error": 226.09138086180994,
+          "bias": 0.30992497941683816
+        }
+      ],
+      "t": 1764719993875
+    }
+  ],
+  "encoded": [
+    {
+      "name": "hospital",
+      "x": 258.75,
+      "y": 256.8
+    },
+    {
+      "name": "restaurant",
+      "x": 581.25,
+      "y": 592
+    },
+    {
+      "name": "shopping mall",
+      "x": 273.75,
+      "y": 609.6
+    },
+    {
+      "name": "park",
+      "x": 612.1875,
+      "y": 309.6
+    },
+    {
+      "name": "coffee shop",
+      "x": 241.875,
+      "y": 470.40000000000003
+    },
+    {
+      "name": "university",
+      "x": 736.875,
+      "y": 524
+    }
+  ],
+  "nameMap": {
+    "hospital": {
+      "x": 258.75,
+      "y": 256.8
+    },
+    "restaurant": {
+      "x": 581.25,
+      "y": 592
+    },
+    "shopping mall": {
+      "x": 273.75,
+      "y": 609.6
+    },
+    "park": {
+      "x": 612.1875,
+      "y": 309.6
+    },
+    "coffee shop": {
+      "x": 241.875,
+      "y": 470.40000000000003
+    },
+    "university": {
+      "x": 736.875,
+      "y": 524
+    }
+  },
+  "sessionStart": 1764719958203
+}
