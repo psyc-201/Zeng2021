@@ -12,6 +12,8 @@ format:
 
 ## Introduction
 
+The current project aims to replicate findings from experiment 1 of Zeng et al ., 2021. Firstly, they found that while item memories of spatial landmarks become more noisy and have higher errors over time, gist memory or the average location of all landmarks remains relatively stable. As gist memory is stable and has higher representational strength, it could influence the recall of item memory so that the location of recalled landmark is attracted toward the gist location. This effect could be observed in memory bias. Crucially, the study found that memory bias becomes more attracted toward the gist after 1 month delay period.
+
 
 
 Link to the paper : https://github.com/CP-PP8/Zeng2021/blob/main/original_paper/elife-65588-v3.pdf
@@ -107,7 +109,7 @@ Here, due to time constraint, we only collected data from 24 hour group instead 
 Data preparation following the analysis plan.
 	
 
-```python
+```{python}
 # Import python libraries
 import numpy as np
 import pandas as pd
@@ -116,7 +118,8 @@ import scipy.stats as stats
 import pingouin as pg
 
 # Import dataframe 
-data_path = '/Zeng2021/analysis/all_sub_data.csv'
+# Change path 
+datapath = '/Users/chattarinpoungtubtim/Zeng2021/analysis/all_sub_data.csv'
 all_sub_df = pd.read_csv(datapath)
 
 # Get data as numpy array
@@ -160,8 +163,10 @@ good_sub_all = np.logical_and(good_avg_perf_all,good_gist_both)
 ID_good_sub = all_sub_df['ID_sub'].to_numpy()[good_sub_all]
 ## get clean dataframe
 clean_sub_df = all_sub_df[all_sub_df['ID_sub'].isin(ID_good_sub)]
+```
 
-
+#### Statistical test for memory error
+```{python}
 # prepare for stat tests for memory error
 error_df = clean_sub_df[['ID_sub','avg_ind_error_session_1','avg_ind_error_session_2','gist_error_session_1','gist_error_session_2']]
 # copy dataframe
@@ -180,7 +185,7 @@ for i in range(len(error_melt['ID_sub'])):
     elif error_melt['variable'][i] == 'avg_ind_error_session_2':
         session_cond.append(1)
         mem_cond.append(0)
-    elif error_melt['variable'][i] == 'avg_gist_error_session_1':
+    elif error_melt['variable'][i] == 'gist_error_session_1':
         session_cond.append(0)
         mem_cond.append(1) 
     else: 
@@ -198,7 +203,7 @@ pg.print_table(aov_error)
 # post hoc paired t-test for memory error
 ## get difference of memory error between session 2 and 1 for both item and gist memories
 diff_err_ind = error_df['avg_ind_error_session_2'].to_numpy() - error_df['avg_ind_error_session_1'].to_numpy()
-diff_err_gist = error_df['avg_ind_error_session_2'].to_numpy() - error_df['avg_gist_error_session_1'].to_numpy()
+diff_err_gist = error_df['gist_error_session_2'].to_numpy() - error_df['gist_error_session_1'].to_numpy()
 t_stats, p_val = stats.ttest_rel(diff_err_ind,diff_err_gist)
 ## get degree of freedom
 t_df = np.sum(good_sub_all)-1
@@ -206,8 +211,10 @@ t_df = np.sum(good_sub_all)-1
 cohen_d_err = np.mean(diff_err_ind-diff_err_gist)/np.std(diff_err_ind-diff_err_gist)
 ## print result
 print(f'post-hoc t-test for memory error differences (item vs gist) : t({t_df}) = {t_stats}, p = {p_val}, Cohens D = {cohen_d_err}')
+```
 
-
+#### statistical test for memory bias
+```{python}
 # prepare for stat tests for memory bias
 bias_df = clean_sub_df[['ID_sub','obs_bias_session_1','obs_bias_session_2','sim_bias_session_1','sim_bias_session_2']]
 # copy dataframe
@@ -269,7 +276,10 @@ diff_bias_sim2 = bias_df['obs_bias_session_2'].to_numpy()-bias_df['sim_bias_sess
 cohen_d_bias_sim2 = np.mean(diff_bias_sim2)/np.std(diff_bias_sim2)
 ## print result
 print(f'post-hoc t-test for memory biases difference at session 2 (observed vs simulated) : t({t_df_sim2}) = {t_stats_sim2}, p = {p_val_sim2}, Cohens D = {cohen_d_bias_sim2}')
+```
 
+#### Plot result
+```{python}
 # function for plotting errors
 def plot_bar_and_scatter(data1,data2,title,labels,ylabel,color=(0, 0.4, 0, 1),bar_width=0.4,capsize=12,ylim=350):
     x = np.arange(0,len(labels))
@@ -395,10 +405,10 @@ As we found earlier that participants might misunderstood the instruction or did
 
 ### Summary of Replication Attempt
 
-Gist memory decreased less than item memory over time
-Memory bias is attracted toward the gist memory after 1 day of learning
-Memory bias becomes more attracted to gist memory over time (trend but NS)
+From collecting data after 24 hour delay, we found that gist memory is relatively more stable than item memory as there is a smaller increase of memory error for gist compared to item memory. According to the original study, we would not expect to find attractio bias toward the gist after 24 hour as they only found it 1 month after session 1. In our replication study, we found a trend that memory error becomes more attracted toward the gist but it is not significant. However, if we compare observed bias to simulated bias. Then we could see the bias is "attracted" toward the gist memory in session 2. As time goes by, simulated bias will become more repulsive as item memory error increases. Therefore, we should expect memory bias to be more repulsive over time if there is no attraction toward the gist. But here, we found increasing albeit not significant bias toward the gist in session 2 and it is higher than simulated bias. Suggesting that there could be attraction bias toward the gist memory. Overall, the result from this replication study is far from conclusive but points toward similar results in the original study
 
 ### Commentary
+
+In this replication study, we could only partially replicate findings from the original study as we only have result from 24 hour group. However,we found similar findings to the original such as relatively more stable gist memory compared to item memory over time and attraction bias toward the gist memory after a delay. Furthermore, we also observed a non-significanttrend that memory bias becomes more attracted to gist memory over time.
 
 
